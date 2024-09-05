@@ -1,0 +1,19 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="report.views.index" />
+          <option value="report.views.create" />
+          <option value="report.views.create_dgu" />
+          <option value="report.views.edit" />
+          <option value="report.views.create_report" />
+          <option value="report.views.edit_dgu" />
+          <option value="report.views.delete" />
+          <option value="report.views.delete_dgu" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
