@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Изменить ДГУ</title>
+</head>
+<body>
+    <h2>Изменение товара</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Изменить название ДГУ</label><br>
+            <input type="text" name="name" value="{{dgu.name}}" />
+        </p>
+        <p>
+            <label>Изменить мощьность</label><br>
+            <input type="number" name="power" value="{{dgu.power}}"/>
+        </p>
+
+        <input type="submit" value="Сохранить" >
+    </form>
+</body>
+</html>

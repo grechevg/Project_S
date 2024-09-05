@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Uraa</title>
+</head>
+<body>
+    <h3>Список ДГУ</h3>
+    <table>
+        <thead><th>Название</th><th>Мощьность</th><th></th></thead>
+        {% for dgu in dgus %}
+        <tr>
+            <td>{{ dgu.name }}</td>
+            <td>{{ dgu.power }}</td>
+            <td>
+                <a href="edit_dgu/{{dgu.id}}">Изменить</a> |
+                <a href="delete_dgu/{{dgu.id}}">Удалить</a> |
+                <a href="create_report/{{dgu.id}}">Отсчет</a> |
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="create_dgu/">Добавить ДГУ</a>
+
+    <table>
+        <thead><th>Проблема</th><th>Температура ДВС</th><th>ДГУ</th></thead>
+        {% for report in report_dgu %}
+        <tr>
+            <td>{{ report.title}}</td>
+            <td>{{ report.tc }}</td>
+            <td>{{ report.dgu.name }}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+
+</body>
+</html>

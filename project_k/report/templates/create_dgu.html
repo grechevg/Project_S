@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Создаем ДГУ</title>
+</head>
+<body>
+    <h2>Добавление ДГУ</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Название ДГУ</label><br>
+            <input type="text" name="name" />
+        </p>
+        <p>
+            <label>Мощьность</label><br>
+            <input type="number" name="power" />
+        </p>
+
+        <input type="submit" value="Сохранить" >
+    </form>
+</body>
+</html>
