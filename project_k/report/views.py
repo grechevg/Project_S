@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import  CreateDGU, ReportDGU
+from .models import CreateDGU, ReportDGU
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 
 
