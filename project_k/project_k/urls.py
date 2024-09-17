@@ -10,3 +10,6 @@ urlpatterns = [
     path("edit_dgu/<int:id>/", views.edit_dgu, name='edit_dgu'),
     path("delete_dgu/<int:id>/", views.delete_dgu, name='delete_dgu'),
 ]
+
+admin.site.site_header = "Панель администрирования"
+admin.site.index_title = "Комплексные Энерго-Системы"
