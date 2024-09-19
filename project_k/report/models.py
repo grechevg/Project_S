@@ -3,7 +3,7 @@ from django.db import models
 
 class ObjectKES(models.Model):
     name = models.CharField(max_length=30)
-    address = models.CharField(max_length=250, blank=True)
+    manager = models.CharField(max_length=250, blank=True)
 
     def __str__(self):
         return f"{self.name}"
@@ -34,12 +34,14 @@ class ReportDGU(models.Model):
 
 
 class Location(models.Model):
-    name = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=30)
+    object_kes = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=250, blank=True)
 
     class Meta:
         verbose_name = 'Участок'
         verbose_name_plural = 'Участок'
+
 
 
 class Post(models.Model):
