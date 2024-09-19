@@ -13,10 +13,26 @@ class ObjectKES(models.Model):
         verbose_name_plural = 'Объект'
 
 
+class Location(models.Model):
+    name = models.CharField(max_length=30)
+    object_kes = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True)
+    address = models.CharField(max_length=250, blank=True)
+    def __str__(self):
+        return f"{self.name}"
+
+    class Meta:
+        verbose_name = 'Локация'
+        verbose_name_plural = 'Локация'
+
+    class Meta:
+        verbose_name = 'Участок'
+        verbose_name_plural = 'Участок'
+
+
 class CreateDGU(models.Model):
     name = models.CharField(max_length=30, verbose_name="Номер Дгу")
     power = models.IntegerField(verbose_name="Мощьность КВт")
-    object_kes = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True, verbose_name="Обьект")
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, verbose_name="Обьект")
 
     def __str__(self):
         return f"{self.name}"
@@ -30,18 +46,6 @@ class ReportDGU(models.Model):
     dgu = models.ForeignKey(CreateDGU, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=30)
     tc = models.IntegerField()
-
-
-
-class Location(models.Model):
-    name = models.CharField(max_length=30)
-    object_kes = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True)
-    address = models.CharField(max_length=250, blank=True)
-
-    class Meta:
-        verbose_name = 'Участок'
-        verbose_name_plural = 'Участок'
-
 
 
 class Post(models.Model):
