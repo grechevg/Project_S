@@ -7,11 +7,11 @@
 <body>
     <h3>Список ДГУ</h3>
     <table>
-        <thead><th>Название</th><th>Мощьность</th><th></th></thead>
+        <thead><th>Название</th><th>Описание</th><th></th></thead>
         {% for dgu in dgus %}
         <tr>
             <td>{{ dgu.name }}</td>
-            <td>{{ dgu.power }}</td>
+            <td>{{ dgu.title }}</td>
             <td>
                 <a href="edit_dgu/{{dgu.id}}">Изменить</a> |
                 <a href="delete_dgu/{{dgu.id}}">Удалить</a> |

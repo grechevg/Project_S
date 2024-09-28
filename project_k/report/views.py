@@ -32,7 +32,7 @@ def create_dgu(request):
     if request.method == "POST":
         dgu = CreateDGU()
         dgu.name = request.POST.get("name")
-        dgu.power = request.POST.get("power")
+        dgu.title = request.POST.get("title")
         dgu.save()
         return HttpResponseRedirect("/")
     return render(request, "create_dgu.html", )
@@ -42,7 +42,7 @@ def edit_dgu(request, id):
         dgu = CreateDGU.objects.get(id=id)
         if request.method == "POST":
             dgu.name = request.POST.get("name")
-            dgu.power = request.POST.get("power")
+            dgu.title = request.POST.get("title")
             dgu.save()
             return HttpResponseRedirect("/")
         else:
