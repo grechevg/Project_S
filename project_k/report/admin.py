@@ -14,9 +14,13 @@ class CreateDGUAdmin(admin.ModelAdmin):
 class DVSAdmin(admin.ModelAdmin):
     list_display = ('engine_hours', 'model_dvs', 'sn', 'title')
     list_display_links = ('model_dvs',)
+@admin.register(Maker)
+class MakerAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name',)
 @admin.register(DVSmodel)
 class DVSmodelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'model_dvs', 'power', 'cylinders', 'title')
+    list_display = ('id', 'model_dvs', 'maker_dvs', 'power', 'volume', 'cylinders', 'title')
     list_display_links = ('id', 'model_dvs',)
 @admin.register(ObjectKES)
 class ObjectKESAdmin(admin.ModelAdmin):
@@ -32,9 +36,12 @@ class LocationAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ['name']
 
+@admin.register(ReportDGU)
+class ReportDGUAdmin(admin.ModelAdmin):
+    list_display = ('id', 'dgu', 'title', 'tc', 'time_create', 'time_update')
+    list_display_links = ('id', 'dgu')
 
 
-admin.site.register(ReportDGU)
 
 
 

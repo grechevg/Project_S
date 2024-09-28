@@ -1,13 +1,23 @@
 from django.db import models
 
+
+class Maker(models.Model):
+    name = models.CharField(max_length=30)
+    def __str__(self):
+        return f"{self.name}"
+    class Meta:
+        verbose_name = 'Производитель'
+        verbose_name_plural = 'Производитель'
+
 class DVSmodel(models.Model):
     model_dvs = models.CharField(blank=True, max_length=30, verbose_name='Модель ДВС')
+    maker_dvs = models.ForeignKey(Maker, on_delete=models.SET_NULL, null=True, verbose_name="Производитель")
     power = models.IntegerField(blank=True, verbose_name="Мощьность ДВС")
     cylinders = models.IntegerField(blank=True, verbose_name="Количество цилиндров")
-    # volume = models.DecimalField(blank=True, decimal_places=2, max_digits=2,  verbose_name="Объем ДВС")
+    volume = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2,  verbose_name="Объем ДВС")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
-        return f"{self.model_dvs}"
+        return f"{self.model_dvs, self.maker_dvs}"
     class Meta:
         verbose_name = 'Модель ДВС'
         verbose_name_plural = 'Модель ДВС'
@@ -18,7 +28,7 @@ class DVS(models.Model):
     engine_hours = models.IntegerField(blank=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
-        return f"{self.model_dvs}"
+        return f"{self.sn, self.model_dvs,}"
     class Meta:
         verbose_name = 'ДВС'
         verbose_name_plural = 'ДВС'
@@ -63,6 +73,8 @@ class ReportDGU(models.Model):
     dgu = models.ForeignKey(CreateDGU, on_delete=models.SET_NULL, null=True, verbose_name="Номер Дгу")
     title = models.CharField(max_length=30)
     tc = models.IntegerField()
+    time_create = models.DateTimeField(auto_now_add=True, blank=True, null=True,)
+    time_update = models.DateTimeField(auto_now=True, blank=True, null=True,)
     def __str__(self):
         return f"{self.dgu}"
     class Meta:
