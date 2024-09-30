@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Создать отчет</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h2>Создать отчет для {{name_dgu}}</h2>
     <form method="POST">
         {% csrf_token %}
@@ -18,5 +14,5 @@
         </p>
         <input type="submit" value="Сохранить" >
     </form>
-</body>
-</html>
+
+{% endblock %}

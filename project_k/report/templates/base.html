@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}КЭС{% endblock title %}</title>
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    {% endblock css %}
+</head>
+<body>
+    
+    <!-- Navigation bar -->
+    <header class="header">
+        <!-- Logo -->
+         <a href="{%url 'index'%}" class="logo">КЭС</a>
+
+        <!-- Hamburger icon -->
+        <input class="side-menu" type="checkbox" id="side-menu"/>
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+
+        <!-- Menu -->
+        <nav class="nav">
+            <ul class="menu">
+                <li><a href="{%url 'users:login'%}">Авторизация</a></li>
+                    <li><a href="{%url 'create_dgu'%}">Отчет</a></li>
+                <li><a href="{%url 'users:login'%}">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    {% block content %}{% endblock content %}
+
+</body>
+</html>

@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Изменить ДГУ</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Изменить ДГУ{% endblock title %}
+
+{% block content %}
     <h2>Изменение товара</h2>
     <form method="POST">
         {% csrf_token %}
@@ -19,5 +16,4 @@
 
         <input type="submit" value="Сохранить" >
     </form>
-</body>
-</html>
+{% endblock %}
