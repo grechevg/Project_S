@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Uraa</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h3>Список ДГУ</h3>
     <table>
         <thead><th>Название</th><th>Описание</th><th></th></thead>
@@ -35,6 +31,4 @@
         {% endfor %}
     </table>
 
-
-</body>
-</html>
+{% endblock %}
