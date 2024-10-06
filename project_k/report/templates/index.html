@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
     <h3>Список ДГУ</h3>
     <table>
         <thead><th>Название</th><th>Описание</th><th></th></thead>
@@ -30,5 +31,7 @@
         </tr>
         {% endfor %}
     </table>
-
+{% else %}
+<p>необходима авторизация</p>
+{% endif %}
 {% endblock %}
