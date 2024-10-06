@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -71,6 +72,8 @@ class CreateDGU(models.Model):
 
 class ReportDGU(models.Model):
     dgu = models.ForeignKey(CreateDGU, on_delete=models.SET_NULL, null=True, verbose_name="Номер Дгу")
+    author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='posts', null=True,
+                               default=None)
     title = models.CharField(max_length=30)
     tc = models.IntegerField()
     time_create = models.DateTimeField(auto_now_add=True, blank=True, null=True,)

@@ -52,13 +52,16 @@ ul{
     
 }
 
-.menu a{
+.menu a {
     display: block;
     padding: 30px;
     color: var(--white);
 
 }
+.user_name{
 
+    font-color: #aaa;
+}
 .menu a:hover{
     background-color: var(--grey);
 }
