@@ -27,8 +27,12 @@
                 {% if user.is_authenticated %}
                 <li><a href="{%url 'create_dgu'%}">Отчет</a></li>
                 <li><a href="#">About</a></li>
+
                 <li><a href="admin/">{{user.username}}</a></li>
                 <li><a href="{%url 'users:logout'%}">Выход</a></li>
+
+                <li><a href="{%url 'users:logout'%}">{{user.username}} | Выход</a></li>
+
                 {% else %}
                 <li><a href="{%url 'users:login'%}">Авторизация</a></li>
                 {% endif %}
