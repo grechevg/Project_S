@@ -12,7 +12,7 @@ class CreateDGUAdmin(admin.ModelAdmin):
 
 @admin.register(DVS)
 class DVSAdmin(admin.ModelAdmin):
-    list_display = ('engine_hours', 'model_dvs', 'sn', 'title')
+    list_display = ('id', 'engine_hours', 'model_dvs', 'sn', 'title')
     list_display_links = ('model_dvs',)
 @admin.register(Maker)
 class MakerAdmin(admin.ModelAdmin):
@@ -24,7 +24,7 @@ class DVSmodelAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'model_dvs',)
 @admin.register(ObjectKES)
 class ObjectKESAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'manager')
+    list_display = ('id', 'name', 'manager', )
     list_display_links = ('id', 'name')
 
 

@@ -29,13 +29,17 @@ class DVS(models.Model):
     engine_hours = models.IntegerField(blank=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
-        return f"{self.sn, self.model_dvs,}"
+        return f"{self.id, self.model_dvs,}"
     class Meta:
         verbose_name = 'ДВС'
         verbose_name_plural = 'ДВС'
 class ObjectKES(models.Model):
     name = models.CharField(max_length=30)
-    manager = models.CharField(max_length=250, blank=True)
+    manager = models.ForeignKey(get_user_model(),
+                               on_delete=models.SET_NULL,
+                               related_name='manager_obj',
+                               null=True, default=None)
+    public = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.name}"
     class Meta:

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .models import CreateDGU, ReportDGU
+from .models import CreateDGU, ReportDGU, ObjectKES, Location
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 
 
@@ -8,8 +8,9 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 @login_required
 def index(request):
     dgus = CreateDGU.objects.all()
-    report_dgu = ReportDGU.objects.all()
-    return render(request, "index.html", {'dgus': dgus, 'report_dgu': report_dgu, })
+    location = Location.objects.all()
+    object_kes = ObjectKES.objects.filter(public=True,)
+    return render(request, "index.html", {'dgus': dgus, 'location': location, 'object_kes': object_kes})
 
 
 @login_required

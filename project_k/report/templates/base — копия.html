@@ -11,7 +11,7 @@
     {% endblock css %}
 </head>
 <body>
-
+    
     <!-- Navigation bar -->
     <header class="header">
         <!-- Logo -->
@@ -23,15 +23,17 @@
         <input class="side-menu" type="checkbox" id="side-menu"/>
         <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
 
-                <!-- Menu -->
+        <!-- Menu -->
         <nav class="nav">
             <ul class="menu">
                 {% if user.is_authenticated %}
-                {% block menu %}
-                    <li><a href="#">About</a></li>
-                {% endblock menu %}
+                <li><a href="{%url 'create_dgu'%}">Отчет</a></li>
+                <li><a href="#">About</a></li>
+
                 <li><a href="admin/">{{user.username}}</a></li>
                 <li><a href="{%url 'users:logout'%}">Выход</a></li>
+
+                <li><a href="{%url 'users:logout'%}">{{user.username}} | Выход</a></li>
 
                 {% else %}
                 <li><a href="{%url 'users:login'%}">Авторизация</a></li>

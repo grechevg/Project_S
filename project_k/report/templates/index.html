@@ -1,37 +1,44 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/style_index.css' %}">
+{% endblock css %}
 
 {% block content %}
-{% if user.is_authenticated %}
-    <h3>Список ДГУ</h3>
-    <table>
-        <thead><th>Название</th><th>Описание</th><th></th></thead>
-        {% for dgu in dgus %}
-        <tr>
-            <td>{{ dgu.name }}</td>
-            <td>{{ dgu.title }}</td>
-            <td>
-                <a href="edit_dgu/{{dgu.id}}">Изменить</a> |
-                <a href="delete_dgu/{{dgu.id}}">Удалить</a> |
-                <a href="create_report/{{dgu.id}}">Отсчет</a> |
-            </td>
-        </tr>
+    <!-- Main content -->
+    <main>
+        {% for objkes in object_kes %}
+                <div class="blok_1  inline">
+                    <p>{{ objkes.id }}</p>
+                    <p>{{ objkes.name }}</p>
+                    <p>{{ objkes.manager }}</p>
+                    {% for lct in location %}
+                        {% if objkes.id == lct.object_kes.id %}
+                            <p>{{ lct.id }} {{ lct.name }}  {{ lct.object_kes.id }}</p><br>
+                        {% else %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
         {% endfor %}
-    </table>
+        <img src="{% static  'img/0.gif'%}" class="zero">
+        <div class="blok_1  inline">
+            <p>Блок 1</p>
+        </div>
 
-    <a href="create_dgu/">Добавить ДГУ</a>
+        <div class="blok_2 inline">
+            <p>Блок 2</p>
+        </div>
 
-    <table>
-        <thead><th>Проблема</th><th>Температура ДВС</th><th>ДГУ</th></thead>
-        {% for report in report_dgu %}
-        <tr>
-            <td>{{ report.title}}</td>
-            <td>{{ report.tc }}</td>
-            <td>{{ report.dgu.name }}</td>
+        <div class="blok_3 inline">
+            <p>Блок 3</p>
+        </div>
 
-        </tr>
-        {% endfor %}
-    </table>
-{% else %}
-<p>необходима авторизация</p>
-{% endif %}
-{% endblock %}
+        <h5>ООО «КОМПЛЕКСНЫЕ ЭНЕРГОСИСТЕМЫ»</h5>
+        <p>- МЫ СОЗДАЕМ ЭНЕРГИЮ ДЛЯ ВАШЕГО БИЗНЕСА!</p>
+        <p> .</p>
+        <p>
+            <img src="{% static  'img/c450d5e_1_2.jpg' %}" alt="схема" width="30%">
+        </p>
+    </main>
+{% endblock content %}

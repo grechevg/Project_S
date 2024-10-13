@@ -1,0 +1,17 @@
+/* Main content */
+
+.inline{
+    width: 32%;
+    height: 200px;
+	display: inline-block;
+    margin: 3px;
+    border: 4px solid rgb(81, 90, 81);
+}
+.blok_1 {
+    background-color: rgb(162, 214, 214);
+}
+.blok_2 {
+    background-color: rgb(168, 181, 184);
+}
+
+
