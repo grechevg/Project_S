@@ -10,15 +10,24 @@
     <main>
         {% for objkes in object_kes %}
                 <div class="blok_1  inline">
-                    <p>{{ objkes.id }}</p>
-                    <p>{{ objkes.name }}</p>
+                    <a href="{% url 'object_kes' objkes.id %}" >{{ objkes.name }}</a>
                     <p>{{ objkes.manager }}</p>
+
                     {% for lct in location %}
                         {% if objkes.id == lct.object_kes.id %}
-                            <p>{{ lct.id }} {{ lct.name }}  {{ lct.object_kes.id }}</p><br>
+                            <div class="blok_2 inline">
+                            <p>{{ lct.name }}</p>
+                            {% for dgu in dgus %}
+                                {% if lct.id == dgu.location.id %}
+                                <p><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></p>
+                                {% else %}
+                                {% endif %}
+                            {% endfor %}
+                            </div>
                         {% else %}
                         {% endif %}
                     {% endfor %}
+
                 </div>
         {% endfor %}
         <img src="{% static  'img/0.gif'%}" class="zero">
@@ -26,14 +35,11 @@
             <p>Блок 1</p>
         </div>
 
-        <div class="blok_2 inline">
-            <p>Блок 2</p>
-        </div>
 
         <div class="blok_3 inline">
             <p>Блок 3</p>
         </div>
-
+<img src="{% static  'img/0.gif'%}" class="zero">
         <h5>ООО «КОМПЛЕКСНЫЕ ЭНЕРГОСИСТЕМЫ»</h5>
         <p>- МЫ СОЗДАЕМ ЭНЕРГИЮ ДЛЯ ВАШЕГО БИЗНЕСА!</p>
         <p> .</p>

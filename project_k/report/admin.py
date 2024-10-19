@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(CreateDGU)
 class CreateDGUAdmin(admin.ModelAdmin):
-    list_display = ('name', 'dvs', 'location', 'title')
+    list_display = ('name', 'dvs', 'location',  'work', 'status', 'paralel', 'title',)
     list_display_links = ('name',)
     list_editable = ('location',)
     list_per_page = 10
@@ -40,7 +40,10 @@ class LocationAdmin(admin.ModelAdmin):
 class ReportDGUAdmin(admin.ModelAdmin):
     list_display = ('id', 'dgu', 'title', 'tc', 'time_create', 'time_update')
     list_display_links = ('id', 'dgu')
-
+@admin.register(Status)
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', )
+    list_display_links = ('id', 'name')
 
 
 

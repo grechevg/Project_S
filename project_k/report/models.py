@@ -2,6 +2,14 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 
+class Status(models.Model):
+    name = models.CharField(max_length=30)
+    def __str__(self):
+        return f"{self.name}"
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статус'
+
 class Maker(models.Model):
     name = models.CharField(max_length=30)
     def __str__(self):
@@ -65,7 +73,20 @@ class CreateDGU(models.Model):
     name = models.CharField(max_length=30, verbose_name="Номер Дгу")
     dvs = models.ForeignKey(DVS, on_delete=models.SET_NULL, null=True, verbose_name="Модель ДВС")
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, verbose_name="Обьект")
+    work = models.BooleanField(default=False, verbose_name='в Работе')
+    status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Состояние")
+    paralel = models.BooleanField(default=False, verbose_name='Паралель')
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
+
+    # настройка отчета
+    narabotka = models.BooleanField(default=True, verbose_name='Наработка')
+    nagruzka = models.BooleanField(default=True, verbose_name='Нагрузка')
+    l1 = models.BooleanField(default=True, verbose_name='L1')
+    l2 = models.BooleanField(default=True, verbose_name='L2')
+    l3 = models.BooleanField(default=True, verbose_name='L3')
+    dmasla = models.BooleanField(default=True, verbose_name='Давление масла')
+    tog = models.BooleanField(default=True, verbose_name='Темп. Охл. Жидкости')
+    primechanie = models.BooleanField(default=True, verbose_name='Примечания')
     def __str__(self):
         return f"{self.name}"
 

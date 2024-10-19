@@ -164,20 +164,12 @@ input{
 }
 
 
-/* Блоки Ввода */
-
-.dguline {
-
-	background: #E5D3BD;
-    border: 2px solid #E81E25;
-
-}
 
 /* Responsiveness */
 
 @media (min-width: 768px) {
     .nav{
-        max-height: none;
+        max-height: 70px;
         top: 0;
         position: relative;
         float: right;

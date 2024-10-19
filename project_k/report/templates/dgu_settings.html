@@ -2,35 +2,35 @@
 {% load static %}
 {% block content %}
  <main>
-        <form method="POST">
+	 <form method="POST">
             {% csrf_token %}
 			<fieldset>
 				<legend>Настройка отчета ДГУ № {{dgu.name}}</legend>
 				<br>
 				<p><input type="checkbox" checked name="narabotka"/>
-						Наработка:<input type =  "number" name = "" placeholder = "Введите моточасы">
+						Наработка:<input type =  "number"  placeholder = "Введите моточасы">
 					м/ч</p><br> <br>
 				<p><input type="checkbox" checked name="nagruzka"/>
-						Нагрузка: <input type =  "number" name = "" placeholder = "Нагрузка">
+						Нагрузка: <input type =  "number"  placeholder = "Нагрузка">
 					кВт</p> <br> <br>
 				<p><input type="checkbox" checked name="l1"/>
 					L1:       <input type =  "number" name = "" placeholder = "L1">
 					A</p><br> <br>
 				<p><input type="checkbox" checked name="l2"/>
-					L2:       <input type =  "number" name = "" placeholder = "L2">
+					L2:       <input type =  "number"  placeholder = "L2">
 					A</p><br> <br>
 				<p><input type="checkbox" checked name="l3"/>
-					L3:       <input type =  "number" name = "" placeholder = "L3">
+					L3:       <input type =  "number"  placeholder = "L3">
 					A</p><br> <br>
 				<p><input type="checkbox" checked name="dmasla"/>
-					Дав.Масла:<input type =  "number" name = "dmasla" placeholder = "Давление Масла">
+					Дав.Масла:<input type =  "number"  placeholder = "Давление Масла">
 					Кг/см²</p><br> <br>
 				<p><input type="checkbox" checked name="tog"/>
-					Темп. ОЖ: <input type =  "number" name = "tog" placeholder = "Температура Антифриза">
+					Темп. ОЖ: <input type =  "number"  placeholder = "Температура Антифриза">
 					°C
 				</p><br> <br>
 				<p><input type="checkbox" checked name="primechanie"/>
-					Примечания:<input type =  "text" name = "" placeholder = "Примечания">
+					Примечания:<input type =  "text"  placeholder = "Примечания">
 				</p><br> <br>
 
 

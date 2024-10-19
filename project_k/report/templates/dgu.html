@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <p><a href="{% url 'dgu_settings' dgu.id %}" >Настройка отчета ДГУ № {{dgu.name}}</a></p>
+{% endblock content %}

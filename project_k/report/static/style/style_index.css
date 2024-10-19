@@ -1,17 +1,36 @@
 /* Main content */
 
 .inline{
-    width: 32%;
-    height: 200px;
-	display: inline-block;
-    margin: 3px;
-    border: 4px solid rgb(81, 90, 81);
+    width: 31%;
+    margin: 6px;
+    float: left;
+
 }
 .blok_1 {
-    background-color: rgb(162, 214, 214);
+    background-color: #DEE8E8;
+    border: 3px solid rgb(81, 90, 81);
+
 }
+
+.blok_1 a {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 30%;
+}
+
+.blok_1 a:hover {
+    color: #430000;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .blok_2 {
     background-color: rgb(168, 181, 184);
+    border: 2px solid rgb(81, 90, 81);
+    text-align: center;
 }
 
 
