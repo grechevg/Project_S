@@ -58,6 +58,10 @@ class ObjectKES(models.Model):
 class Location(models.Model):
     name = models.CharField(max_length=30)
     object_kes = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True)
+    operator = models.ForeignKey(get_user_model(),
+                               on_delete=models.SET_NULL,
+                               related_name='operator_area',
+                               null=True, default=None)
     address = models.CharField(max_length=250, blank=True)
     def __str__(self):
         return f"{self.name}"

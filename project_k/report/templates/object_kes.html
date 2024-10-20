@@ -7,5 +7,24 @@
 {% endblock css %}
 
 {% block content %}
+<main>
+<!--    <p>{{ object_kes.name }}  {{ object_kes.manager }}</p><br>-->
+        {% for lct in location %}
+            <div class="blok_1  inline">
+                <p><a href="{% url 'area' lct.id %}">{{ lct.name }}</a></p>
+                <div class="blok_2 inline">
+                    {% for dgu in dgus %}
+                                {% if lct.id == dgu.location.id %}
+                                <p><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></p>
+                                {% else %}
+                                {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <img src="{% static  'img/0.gif'%}" class="zero">
 
+<img src="{% static  'img/0.gif'%}" class="zero">
+
+</main>
 {% endblock content %}

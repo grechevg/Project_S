@@ -30,9 +30,9 @@ class ObjectKESAdmin(admin.ModelAdmin):
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'object_kes')
+    list_display = ('id', 'name', 'object_kes', 'operator')
     list_display_links = ('id', 'name')
-    list_editable = ('object_kes',)
+    list_editable = ('object_kes','operator')
     list_per_page = 10
     search_fields = ['name']
 

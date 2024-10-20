@@ -67,17 +67,18 @@ def delete_dgu(request, id):
 
 @login_required
 def object_kes(request, id):
-    try:
-        dgu = CreateDGU.objects.get(id=id)
-        if request.method == "POST":
-            dgu.name = request.POST.get("name")
-            dgu.title = request.POST.get("title")
-            dgu.save()
-            return HttpResponseRedirect("/")
-        else:
-            return render(request, "object_kes.html", {"dgu": dgu,})
-    except :
-        return HttpResponseNotFound("<h2>Product not found</h2>")
+    dgus = CreateDGU.objects.all()
+    location = Location.objects.filter(object_kes=id)
+    object_kes = ObjectKES.objects.get(id=id)
+    return render(request, "object_kes.html", {'dgus': dgus,
+                                               'location': location, 'object_kes': object_kes})
+@login_required
+def area(request, id):
+    dgus = CreateDGU.objects.filter(location=id)
+    location = Location.objects.get(id=id)
+    object_kes = Location.objects.get(id=id).object_kes.name
+    return render(request, "area.html", {'dgus': dgus,
+                                               'location': location, 'object_kes': object_kes})
 
 @login_required
 def dgu_settings(request, id):

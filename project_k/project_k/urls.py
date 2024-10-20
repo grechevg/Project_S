@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", index, name='index'),
     path("object_kes/<int:id>/", object_kes, name='object_kes'),
+    path("area/<int:id>/", area, name='area'),
     path("dgu_settings/<int:id>/", dgu_settings, name='dgu_settings'),
     path("dgu/<int:id>/", dgu, name='dgu'),
     path("create_dgu/", create_dgu, name='create_dgu'),

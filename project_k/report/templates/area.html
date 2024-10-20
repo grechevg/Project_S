@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Участок{% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/style_area.css' %}">
+{% endblock css %}
+
+{% block content %}
+<main>
+    <p>{{ object_kes }}</p> <br>
+    <p>{{ location.name }} {{ location.operator }}</p> <br>
+            <div class="blok_1  inline">
+                <div class="blok_2 inline">
+                    {% for dgu in dgus %}
+                        <p><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a> <a href="../../create_report/{{dgu.id}}">Отсчет</a></p>
+                    {% endfor %}
+                </div>
+            </div>
+
+
+
+<img src="{% static  'img/0.gif'%}" class="zero">
+
+</main>
+{% endblock content %}

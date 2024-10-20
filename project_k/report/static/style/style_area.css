@@ -1,7 +1,7 @@
 /* Main content */
 
 .inline{
-    width: 31%;
+    width: 99%;
     margin: 6px;
     float: left;
 
@@ -28,7 +28,7 @@
 }
 
 .blok_2 {
-    width: 29%;
+    width: 98%;
     background-color: rgb(168, 181, 184);
     border: 2px solid rgb(81, 90, 81);
     text-align: center;
