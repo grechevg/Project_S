@@ -1,18 +1,66 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Создать отчет для {{name_dgu}}</h2>
-    <form method="POST">
-        {% csrf_token %}
+<main>
+	<p>{{ hl }}</p>
+	<form method="POST">
+    {% csrf_token %}
+			<fieldset>
+				<legend>Ввод Данных ДГУ № {{name}} </legend>
+				<br>
+				{% if dgu_name.narabotka %}
+					<p>Наработка: <input type="text" name = "narabotka" placeholder = "Введите моточасы"> м/ч </p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.narabotka %}
+					<p>Нагрузка: <input type="text" name = "nagruzka" placeholder = "Нагрузка"> кВт</p> <br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.active %}
+					<p>Активная: <input type="text" name = "active" placeholder = "Активная Нагрузка"> кВт</p> <br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.reactive %}
+					<p>Реактивная: <input type =  "text" name = "reactive" placeholder = "Реактивная  Нагрузка"> кВт</p> <br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.full_load %}
+					<p>Полная: <input type =  "text" name = "full_load" placeholder = "Полная  Нагрузка"> кВт</p> <br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.l1 %}
+				<p>L1:       <input type =  "text" name = "l1" placeholder = "L1"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.l2 %}
+				<p>L2:       <input type =  "text" name = "l2" placeholder = "L2"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.l3 %}
+					<p>L3:       <input type =  "text" name = "l3" placeholder = "L3"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.dmasla %}
+				<p>Дав.Масла:<input type =  "text" name = "dmasla" placeholder = "Давление Масла"> Кг/см²</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.tog %}
+					<p>Темп. ОЖ: <input type="text" name="tc" placeholder = "Температура Антифриза"> °C</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.akb %}
+					<p>АКБ: <input type="text" name="akb" placeholder = "Температура Антифриза"> V</p><br> <br>
+				{% else %}
+				{% endif %}
+				<p>Примечания:</p><p><textarea  name="title" rows="5" cols="35"> </textarea></p><br> <br>
+
+				<input type = "submit" name = "submit" value = "отправить">
+			</fieldset>
+		</form>
         <p>
-            <label>Описание</label><br>
-            <input type="text" name="title" />
+	        <label for="ffile">📷 Сделать фото/видео:</label>
+	        <input type="file" id="ffile" capture="user" accept="audio/*, video/*" style="color:transparent;" onchange="this.style.color = 'black';"/>
         </p>
-        <p>
-            <label>Температура ДВС</label><br>
-            <input type="number" name="tc" />
-        </p>
-        <input type="submit" value="Сохранить" >
-    </form>
+</main>
 
 {% endblock %}

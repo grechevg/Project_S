@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+
 from .models import CreateDGU, ReportDGU, ObjectKES, Location
 from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
 
@@ -16,19 +17,40 @@ def index(request):
 
 @login_required
 def create_report(request, id):
-    dgu_name = CreateDGU.objects.get(id=id)
-    name = dgu_name.name
-    # если запрос POST, сохраняем данные
-    if request.method == "POST":
-        report = ReportDGU()
-        report.dgu_id = id
-        report.title = request.POST.get("title")
-        report.tc = request.POST.get("tc")
-        report.author = request.user
-        report.save()
-        return HttpResponseRedirect("/")
+    try:
+        dgu_name = CreateDGU.objects.get(id=id)
+        name = dgu_name.name
+        lct = dgu_name.location.id
+        hl = 'Неправильно заполнены поля'
+        # если запрос POST, сохраняем данные
+        if request.method == "POST":
+            report = ReportDGU()
+            report.dgu_id = id
+            report.author = request.user
+            report.narabotka = request.POST.get("narabotka")
+            report.nagruzka = request.POST.get("nagruzka")
+            report.active = request.POST.get("active")
+            report.reactive = request.POST.get("reactive")
+            report.full_load = request.POST.get("full_load")
+            report.l1 = request.POST.get("l1")
+            report.l2 = request.POST.get("l2")
+            report.l3 = request.POST.get("l3")
+            report.dmasla = request.POST.get("dmasla")
+            report.tc = request.POST.get("tc")
+            report.akb = request.POST.get("akb")
+            report.title = request.POST.get("title")
+            report.save()
+            return HttpResponseRedirect(f"/area/{lct}")
+        else:
+            return render(request, "create_report.html", {"name": name, ''
+                                                                        'lct': lct,
+                                                                        "dgu_name": dgu_name,})
 
-    return render(request, "create_report.html", {'name_dgu': name,} )
+    except:
+        return render(request, "create_report.html", {"name": name, 'lct': lct,
+                                                                                "dgu_name": dgu_name, "hl": hl})
+
+
 
 @login_required
 def create_dgu(request):

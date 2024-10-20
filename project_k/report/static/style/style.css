@@ -19,6 +19,9 @@ body{
 a{
     text-decoration: none;
 }
+.zero {
+    border: none;
+    width: 90%;}
 h1{
     width: 100%;
     font-size: 80%;

@@ -85,11 +85,15 @@ class CreateDGU(models.Model):
     # настройка отчета
     narabotka = models.BooleanField(default=True, verbose_name='Наработка')
     nagruzka = models.BooleanField(default=True, verbose_name='Нагрузка')
+    active = models.BooleanField(default=True, verbose_name='Активная Нагрузка')
+    reactive = models.BooleanField(default=True, verbose_name='Реактивная  Нагрузка')
+    full_load = models.BooleanField(default=True, verbose_name='Полная  Нагрузка')
     l1 = models.BooleanField(default=True, verbose_name='L1')
     l2 = models.BooleanField(default=True, verbose_name='L2')
     l3 = models.BooleanField(default=True, verbose_name='L3')
     dmasla = models.BooleanField(default=True, verbose_name='Давление масла')
     tog = models.BooleanField(default=True, verbose_name='Темп. Охл. Жидкости')
+    akb = models.BooleanField(default=True, verbose_name='АКБ')
     primechanie = models.BooleanField(default=True, verbose_name='Примечания')
     def __str__(self):
         return f"{self.name}"
@@ -103,8 +107,22 @@ class ReportDGU(models.Model):
     dgu = models.ForeignKey(CreateDGU, on_delete=models.SET_NULL, null=True, verbose_name="Номер Дгу")
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='posts', null=True,
                                default=None)
-    title = models.CharField(max_length=30)
-    tc = models.IntegerField()
+
+    # Показатели Отчета
+    narabotka = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Наработка')
+    nagruzka = models.PositiveIntegerField(null=True, blank=True, default=0,  verbose_name='Нагрузка')
+    active = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Активная Нагрузка')
+    reactive = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Реактивная  Нагрузка')
+    full_load = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Полная  Нагрузка')
+    l1 = models.PositiveSmallIntegerField(null=True, blank=True, default=0, verbose_name='L1')
+    l2 = models.PositiveSmallIntegerField(null=True, blank=True, default=0, verbose_name='L2')
+    l3 = models.PositiveSmallIntegerField(null=True, blank=True, default=0, verbose_name='L3')
+
+    dmasla = models.FloatField(blank=True, null=True, default=0, verbose_name='Давление масла')
+    tc = models.FloatField(blank=True, null=True, default=0, verbose_name='Темп. Охл. Жидкости')
+    akb = models.FloatField(blank=True, null=True, default=0, verbose_name='АКБ')
+    title = models.CharField(max_length=450,null=True, blank=True,  verbose_name='Замечания')
+
     time_create = models.DateTimeField(auto_now_add=True, blank=True, null=True,)
     time_update = models.DateTimeField(auto_now=True, blank=True, null=True,)
     def __str__(self):
