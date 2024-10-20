@@ -9,10 +9,9 @@
     <!-- Main content -->
     <main>
         {% for objkes in object_kes %}
-                <div class="blok_1  inline">
+            <div class="blok_1  inline">
                     <a class="obj1" href="{% url 'object_kes' objkes.id %}" >{{ objkes.name }}</a>
                     <p>{{ objkes.manager }}</p>
-
                     {% for lct in location %}
                         {% if objkes.id == lct.object_kes.id %}
                             <div class="blok_2 inline">
@@ -52,8 +51,7 @@
                         {% else %}
                         {% endif %}
                     {% endfor %}
-
-                </div>
+            </div>
         {% endfor %}
         <img src="{% static  'img/0.gif'%}" class="zero">
 

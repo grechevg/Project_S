@@ -33,6 +33,13 @@
     border: 2px solid rgb(81, 90, 81);
     text-align: center;
 }
+.blok_3 {
+    width: 96%;
+    margin: 6px;
+    background-color: rgb(168, 181, 184);
+    border: 2px solid rgb(81, 90, 81);
+    text-align: center;
+}
 }
 table {
     border: 4px double #399;
@@ -41,9 +48,18 @@ td {
     background: #BFFFDD; /* Цвет фона */
     border: 1px solid #333; /* Граница вокруг ячеек */
     empty-cells: hide; /* Прячем пустые ячейки */
-    padding: 5px; /* Поля в ячейках */
+    padding: 4px; /* Поля в ячейках */
  }
-
+.kes {
+    border-spacing: 6+px 8px;
+}
+.st1{
+    width: 18%;
+}
+.st2{
+    width: 23%;
+    font-size: 90%;
+}
  .dgu_status_rab {
     background: #BFFFDD;
 }
@@ -77,13 +93,3 @@ td {
     .blok_2 {
     width: 99%;}
 }
-/*
-.dgu_statusb {
-    border: 1px solid rgb(81, 90, 81);
-    background-color: #A1A7AD;
-    text-align: center;
-    width: 100%;
-
-}
-
-*/
