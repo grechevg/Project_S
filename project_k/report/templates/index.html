@@ -10,7 +10,7 @@
     <main>
         {% for objkes in object_kes %}
                 <div class="blok_1  inline">
-                    <a href="{% url 'object_kes' objkes.id %}" >{{ objkes.name }}</a>
+                    <a class="obj1" href="{% url 'object_kes' objkes.id %}" >{{ objkes.name }}</a>
                     <p>{{ objkes.manager }}</p>
 
                     {% for lct in location %}
@@ -19,7 +19,32 @@
                             <p>{{ lct.name }}</p>
                             {% for dgu in dgus %}
                                 {% if lct.id == dgu.location.id %}
-                                <p><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></p>
+                                <table border="1" width="100%">
+                                <tr>
+                                    {% if dgu.status.id == 2 %}
+                                        <td class="dgu_status_avar"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                                    {% elif  dgu.status.id == 3 %}
+                                        <td class="dgu_status_rem"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                                    {% elif not dgu.work %}
+                                        <td class="dgu_status_res"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                                    {% elif dgu.work %}
+                                        <td class="dgu_status_rab" ><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                                    {% endif %}
+                                    {% if dgu.work and dgu.status.id == 1 %}
+                                        <td>Раб</td>
+                                    {% elif not dgu.work and dgu.status.id == 1 %}
+                                        <td class="dgu_status_res">Рез</td>
+                                    {% elif dgu.status.id == 2 %}
+                                        <td class="dgu_status_avar">Ав.</td>
+                                    {% elif dgu.status.id == 3 %}
+                                        <td class="dgu_status_rem">Рем</td>
+                                    {% elif dgu.status.id == 4 %}
+                                        <td class="dgu_status_rem">Тр.</td>
+                                    {% elif dgu.status.id == 5 %}
+                                        <td class="dgu_status_rem">ТО1</td>
+                                    {% else %}<td> </td>
+                                    {% endif %}
+                                </tr></table>
                                 {% else %}
                                 {% endif %}
                             {% endfor %}

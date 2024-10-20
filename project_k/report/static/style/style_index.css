@@ -12,7 +12,7 @@
 
 }
 
-.blok_1 a {
+.obj1 {
     color: #000;
     font-size: 14px;
     font-weight: bold;
@@ -22,7 +22,7 @@
 
 .blok_1 a:hover {
     color: #430000;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     text-decoration: underline;
 }
@@ -33,5 +33,57 @@
     border: 2px solid rgb(81, 90, 81);
     text-align: center;
 }
+}
+table {
+    border: 4px double #399;
+}
+td {
+    background: #BFFFDD; /* Цвет фона */
+    border: 1px solid #333; /* Граница вокруг ячеек */
+    empty-cells: hide; /* Прячем пустые ячейки */
+    padding: 5px; /* Поля в ячейках */
+ }
+
+ .dgu_status_rab {
+    background: #BFFFDD;
+}
+
+.dgu_status_res {
+    background: #BFD6FF;
+}
+.dgu_status_avar{
+    background: #FFBABA;
+}
+ .dgu_status_rem {
+    background: #FFDDBF;
+}
 
 
+@media (max-width: 1220px) {
+    .inline{
+    width: 48%;}
+    .blok_2 {
+    width: 29%;}
+}
+@media (max-width: 900px) {
+    .inline{
+    width: 47%;}
+    .blok_2 {
+    width: 46%;}
+}
+@media (max-width: 768px) {
+    .inline{
+    width: 99%;}
+    .blok_2 {
+    width: 99%;}
+}
+/*
+.dgu_statusb {
+    border: 1px solid rgb(81, 90, 81);
+    background-color: #A1A7AD;
+    text-align: center;
+    width: 100%;
+
+}
+
+*/
