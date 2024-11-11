@@ -6,7 +6,6 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound, HttpResponse
 
 
 
-# получение данных из бд
 @login_required
 def index(request):
     dgus = CreateDGU.objects.all()
@@ -22,7 +21,6 @@ def create_report(request, id):
         name = dgu_name.name
         lct = dgu_name.location.id
         hl = 'Неправильно заполнены поля'
-        # если запрос POST, сохраняем данные
         if request.method == "POST":
             report = ReportDGU()
             report.dgu_id = id
@@ -45,7 +43,6 @@ def create_report(request, id):
             return render(request, "create_report.html", {"name": name, ''
                                                                         'lct': lct,
                                                                         "dgu_name": dgu_name,})
-
     except:
         return render(request, "create_report.html", {"name": name, 'lct': lct,
                                                                                 "dgu_name": dgu_name, "hl": hl})
@@ -115,7 +112,6 @@ def dgu_settings(request, id):
             dgu.dmasla = (False if request.POST.get("dmasla") == None else True)
             dgu.tog = (False if request.POST.get("tog") == None else True)
             dgu.primechanie = (False if request.POST.get("primechanie") == None else True)
-
             dgu.save()
             return HttpResponseRedirect("../../")
         else:
