@@ -53,12 +53,11 @@
                                     <td class="st3 dgu_status_rab">В Работе</td>
                                 {% endif %}
                             <td class="st6 dgu_status_rab">{{dgu.title}}</td>
-                            {% with flag=True %}{% for rpt in report %}
-                                {% if rpt.dgu.name == dgu.name %}
-
-                            {% endfor %}
-                                <td class="st4 dgu_status_rab"><a href="../../create_report/{{dgu.id}}">Отчет</a></td>
-                            {% endwith %}
+                            {% if dgu.name in rpt %}
+                            <td class="st4 dgu_status_rab"><a href="../../create_report/{{dgu.id}}">Отчет</a></td>
+                            {% else %}
+                            <td class="st4 dgu_status_avar"><a href="../../create_report/{{dgu.id}}">Отчет</a></td>
+                            {% endif %}
                         {% endif %}
                     </tr></table>
                 {% endfor %}
@@ -76,7 +75,7 @@
     {% endfor %}</table>
 
     <img src="{% static  'img/0.gif'%}" class="zero">
-    {{ today_date }}
+    {{ rpt }}
 
 </main>
 {% endblock content %}

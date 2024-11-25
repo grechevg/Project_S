@@ -99,10 +99,11 @@ def area(request, id):
     dgus = CreateDGU.objects.filter(location=id)
     location = Location.objects.get(id=id)
     object_kes = Location.objects.get(id=id).object_kes.name
-    report = ReportDGU.objects.filter(time_create__date = date(y, m, d), dgu__location__id=id)
+    report = ReportDGU.objects.filter(time_create__date=date(y, m, d), dgu__location__id=id)
+    rpt = set(i.dgu.name for i in report)
     return render(request, "area.html",
                   {'dgus': dgus, 'location': location, 'object_kes': object_kes,
-                   'report': report, 'today_date': today_date})
+                   'report': report, 'rpt': rpt})
 
 @login_required
 def dgu_settings(request, id):
