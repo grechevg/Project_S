@@ -1,3 +1,4 @@
+from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
@@ -93,11 +94,15 @@ def object_kes(request, id):
                                                'location': location, 'object_kes': object_kes})
 @login_required
 def area(request, id):
+    y, m, d = (int(i) for i in date.today().isoformat().split("-"))
+    today_date = y, m, d
     dgus = CreateDGU.objects.filter(location=id)
     location = Location.objects.get(id=id)
     object_kes = Location.objects.get(id=id).object_kes.name
-    return render(request, "area.html", {'dgus': dgus,
-                                               'location': location, 'object_kes': object_kes})
+    report = ReportDGU.objects.filter(time_create__date = date(y, m, d), dgu__location__id=id)
+    return render(request, "area.html",
+                  {'dgus': dgus, 'location': location, 'object_kes': object_kes,
+                   'report': report, 'today_date': today_date})
 
 @login_required
 def dgu_settings(request, id):

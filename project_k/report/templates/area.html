@@ -10,60 +10,73 @@
 <main>
     <p>{{ object_kes }}</p> <br>
     <p>{{ location.name }} {{ location.operator }}</p> <br>
-            <div class="blok_1  inline">
-                <div class="blok_2 inline">
-                    {% for dgu in dgus %}
-                    <table border="1" width="99%">
-                        <tr>
-                            {% if dgu.status.id == 2 %}
-                                <td class="st1 dgu_status_avar"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
-                            {% elif  dgu.status.id == 3 %}
-                                <td class="st1 dgu_status_rem"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
-                            {% elif not dgu.work %}
-                                <td class="st1 dgu_status_res"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
-                            {% elif dgu.work %}
-                                <td class="st1 dgu_status_rab" ><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
-                            {% endif %}
+        <div class="blok_1  inline">
+            {% for dgu in dgus %}
+                <table>
+                    <tr>
+                        {% if dgu.status.id == 2 %} <!-- Аварийная остановка -->
+                            <td class="st1 dgu_status_avar"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                            <td class="st5 dgu_status_avar">{{dgu.dvs.engine_hours}}</td>
+                            <td class="st2 dgu_status_avar">{{dgu.dvs.model_dvs.model_dvs}}</td>
+                            <td class="st3 dgu_status_avar">Аварийная остановка</td>
+                            <td class="st6 dgu_status_avar">{{dgu.title}}</td>
+                            <td class="st4 dgu_status_avar"><a href="../../create_report/{{dgu.id}}">Ремонт</a></td>
+                        {% elif  dgu.status.id == 3 %} <!-- Ремонт -->
+                            <td class="st1 dgu_status_rem"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                            <td class="st5 dgu_status_rem">{{dgu.dvs.engine_hours}}</td>
+                            <td class="st2 dgu_status_rem">{{dgu.dvs.model_dvs.model_dvs}}</td>
+                            <td class="st3 dgu_status_rem">Ремонт</td>
+                            <td class="st6 dgu_status_rem">{{dgu.title}}</td>
+                            <td class="st4 dgu_status_rem"><a href="../../create_report/{{dgu.id}}">Ремонт</a></td>
+                        {% elif not dgu.work %} <!-- Резерв -->
+                            <td class="st1 dgu_status_res"><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                            <td class="st5 dgu_status_res">{{dgu.dvs.engine_hours}}</td>
+                            <td class="st2 dgu_status_res">{{dgu.dvs.model_dvs.model_dvs}}</td>
+                                {% if dgu.status.id == 4 %}
+                                    <td class="st3 dgu_status_rem">Требуется незн. ремонт</td>
+                                {% elif dgu.status.id == 5 %}
+                                    <td class="st3 dgu_status_avar">Требуется ТО</td>
+                                {% else %}
+                                    <td class="st3 dgu_status_res">Резерв</td>
+                                {% endif %}
+                            <td class="st6 dgu_status_res">{{dgu.title}}</td>
+                            <td class="st4 dgu_status_res"><a href="../../create_report/{{dgu.id}}">Тест запуск</a></td>
+                        {% elif dgu.work %} <!-- В работе -->
+                            <td class="st1 dgu_status_rab" ><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a></td>
+                            <td class="st5 dgu_status_rab">{{dgu.dvs.engine_hours}}</td>
+                            <td class="st2 dgu_status_rab">{{dgu.dvs.model_dvs.model_dvs}}</td>
+                                {% if dgu.status.id == 4 %}
+                                    <td class="st3 dgu_status_rem">Требуется незн. ремонт</td>
+                                {% elif dgu.status.id == 5 %}
+                                    <td class="st3 dgu_status_avar">Требуется ТО</td>
+                                {% else %}
+                                    <td class="st3 dgu_status_rab">В Работе</td>
+                                {% endif %}
+                            <td class="st6 dgu_status_rab">{{dgu.title}}</td>
+                            {% with flag=True %}{% for rpt in report %}
+                                {% if rpt.dgu.name == dgu.name %}
 
-                            {% if dgu.work and dgu.status.id == 1 %}
-                                <td class="st2">{{dgu.dvs.model_dvs.model_dvs}}</td>
-                            {% elif not dgu.work and dgu.status.id == 1 %}
-                                <td class="st2 dgu_status_res">{{dgu.dvs.model_dvs.model_dvs}}</td>
-                            {% elif dgu.status.id == 2 %}
-                                <td class="st2 dgu_status_avar">{{dgu.dvs.model_dvs.model_dvs}}</td>
-                            {% elif dgu.status.id == 3 %}
-                                <td class="st2 dgu_status_rem">{{dgu.dvs.model_dvs.model_dvs}}</td>
-                            {% elif dgu.status.id == 4 %}
-                                <td class="st2 dgu_status_rem">{{dgu.dvs.model_dvs.model_dvs}}</td>
-                            {% elif dgu.status.id == 5 %}
-                                <td class="st2 dgu_status_rem">{{dgu.dvs.model_dvs.model_dvs}}</td>
-                            {% else %}<td> </td>
-                            {% endif %}
-
-                            {% if dgu.work and dgu.status.id == 1 %}
-                                <td class="st3">В Работе</td>
-                            {% elif not dgu.work and dgu.status.id == 1 %}
-                                <td class="st3 dgu_status_res">Резерв</td>
-                            {% elif dgu.status.id == 2 %}
-                                <td class="st3 dgu_status_avar">Аварийная остановка</td>
-                            {% elif dgu.status.id == 3 %}
-                                <td class="st3 dgu_status_rem">Ремонт</td>
-                            {% elif dgu.status.id == 4 %}
-                                <td class="st3 dgu_status_rem">Требуется незн. ремонт</td>
-                            {% elif dgu.status.id == 5 %}
-                                <td class="st3 dgu_status_rem">Требуется ТО</td>
-                            {% else %}<td> </td>
-                            {% endif %}
-                                <td><a href="../../create_report/{{dgu.id}}">Отсчет</a></td>
-                        </tr></table>
-<!--                        <p><a href="{% url 'dgu' dgu.id %}" >{{dgu.name}}</a> <a href="../../create_report/{{dgu.id}}">Отсчет</a></p>-->
-                    {% endfor %}
-                </div>
+                            {% endfor %}
+                                <td class="st4 dgu_status_rab"><a href="../../create_report/{{dgu.id}}">Отчет</a></td>
+                            {% endwith %}
+                        {% endif %}
+                    </tr></table>
+                {% endfor %}
             </div>
-
-
-
 <img src="{% static  'img/0.gif'%}" class="zero">
+    <table>
+    {% for rpt in report %}
+    <tr>
+        <td>{{ rpt.author}}</td>
+        <td>{{ rpt.time_create}}</td>
+        <td>{{ rpt.tc }}</td>
+        <td>{{ rpt.dgu.name }}</td>
+        <td>{{ rpt.dgu.location }}</td>
+    </tr>
+    {% endfor %}</table>
+
+    <img src="{% static  'img/0.gif'%}" class="zero">
+    {{ today_date }}
 
 </main>
 {% endblock content %}

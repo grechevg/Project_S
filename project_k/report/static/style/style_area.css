@@ -1,14 +1,15 @@
-/* Main content */
+a {color: #000;}
 
 .inline{
     width: 99%;
     margin: 6px;
     float: left;
-
 }
 .blok_1 {
+    width: 99%;
     background-color: #DEE8E8;
-    border: 3px solid rgb(81, 90, 81);
+    text-align: center;
+    border: 2px solid rgb(81, 90, 81);
 
 }
 
@@ -26,12 +27,37 @@
     font-weight: bold;
     text-decoration: underline;
 }
-
-.blok_2 {
-    width: 98%;
-    background-color: rgb(168, 181, 184);
-    border: 2px solid rgb(81, 90, 81);
+table {
+    border: 4px double #123838;
+    width: 99%;
     text-align: center;
 }
+td {
+    background: #BFFFDD; /* Цвет фона */
+    border: 1px solid #333; /* Граница вокруг ячеек */
+    empty-cells: hide; /* Прячем пустые ячейки */
+    padding: 4px; /* Поля в ячейках */
+ }
 
+ .dgu_status_rab {
+    background: #BFFFDD;
+}
 
+.dgu_status_res {
+    background: #BFD6FF;
+}
+.dgu_status_avar{
+    background: #FFBABA;
+}
+ .dgu_status_rem {
+    background: #FFDDBF;
+}
+.st1{ width: 7%;}
+.st2{ width: 15%; font-size: 90%;}
+.st3{ width:15%; font-size: 90%;}
+.st4{ width: 10%; font-size: 90%;}
+.st5{ width: 8%; font-size: 80%;}
+.st6{ width: 30%; font-size: 80%;}
+
+a:-webkit-any-link {
+    color: #000;}

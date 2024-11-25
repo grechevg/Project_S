@@ -6,9 +6,7 @@
 {% endblock css %}
 
 {% block content %}
-    <!-- Мой контент
-    -->
-    <main>
+<main>
         {% for objkes in object_kes %}
             <div class="blok_1  inline">
                     <a class="obj1" href="{% url 'object_kes' objkes.id %}" >{{ objkes.name }}</a>

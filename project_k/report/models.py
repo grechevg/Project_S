@@ -80,7 +80,7 @@ class CreateDGU(models.Model):
     work = models.BooleanField(default=False, verbose_name='в Работе')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Состояние")
     paralel = models.BooleanField(default=False, verbose_name='Паралель')
-    title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
+    title = models.CharField(max_length=250, blank=True, verbose_name='Описание  проблем')
 
     # настройка отчета
     narabotka = models.BooleanField(default=True, verbose_name='Наработка')

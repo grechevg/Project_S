@@ -1,4 +1,6 @@
-/* Main content */
+a {color: #000;}
+a:-webkit-any-link {
+    color: #000;}
 
 .inline{
     width: 31%;
@@ -9,7 +11,6 @@
 .blok_1 {
     background-color: #DEE8E8;
     border: 3px solid rgb(81, 90, 81);
-
 }
 
 .obj1 {
@@ -40,7 +41,7 @@
     border: 2px solid rgb(81, 90, 81);
     text-align: center;
 }
-}
+
 table {
     border: 4px double #399;
 }
@@ -51,7 +52,7 @@ td {
     padding: 4px; /* Поля в ячейках */
  }
 .kes {
-    border-spacing: 6+px 8px;
+    border-spacing: 6px 8px;
 }
 .st1{
     width: 18%;
