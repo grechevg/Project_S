@@ -17,6 +17,10 @@ def index(request):
 
 @login_required
 def create_report(request, id):
+    def chec_zpt(text):
+        return text.replace(',', '.') if ',' in text else text
+
+
     try:
         dgu_name = CreateDGU.objects.get(id=id)
         name = dgu_name.name
@@ -34,9 +38,9 @@ def create_report(request, id):
             report.l1 = request.POST.get("l1")
             report.l2 = request.POST.get("l2")
             report.l3 = request.POST.get("l3")
-            report.dmasla = request.POST.get("dmasla")
-            report.tc = request.POST.get("tc")
-            report.akb = request.POST.get("akb")
+            report.dmasla = chec_zpt(request.POST.get("dmasla"))
+            report.tc = chec_zpt(request.POST.get("tc"))
+            report.akb = chec_zpt(request.POST.get("akb"))
             report.title = request.POST.get("title")
             report.save()
             return HttpResponseRedirect(f"/area/{lct}")
@@ -95,7 +99,6 @@ def object_kes(request, id):
 @login_required
 def area(request, id):
     y, m, d = (int(i) for i in date.today().isoformat().split("-"))
-    today_date = y, m, d
     dgus = CreateDGU.objects.filter(location=id)
     location = Location.objects.get(id=id)
     object_kes = Location.objects.get(id=id).object_kes.name
