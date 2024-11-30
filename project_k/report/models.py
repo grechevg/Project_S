@@ -51,23 +51,23 @@ class DVSmodel(models.Model):
         verbose_name_plural = 'Модель ДВС'
 
 class DVS(models.Model):
-    model_dvs = models.ForeignKey(DVSmodel, on_delete=models.SET_NULL, null=True, verbose_name="Модель ДВС")
+    model_dvs = models.ForeignKey(DVSmodel, on_delete=models.SET_NULL, null=True, verbose_name="ДВС")
     sn = models.CharField(max_length=70, blank=True, verbose_name='Серейный номер')
     engine_hours = models.IntegerField(blank=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
-        return f"{self.id, self.model_dvs,}"
+        return f"{self.sn, self.model_dvs,}"
     class Meta:
         verbose_name = 'ДВС'
         verbose_name_plural = 'ДВС'
 
 class Alternator(models.Model):
-    model_alternator = models.ForeignKey(AlternatorModel, on_delete=models.SET_NULL, null=True, verbose_name="Модель ДВС")
+    model_alternator = models.ForeignKey(AlternatorModel, on_delete=models.SET_NULL, null=True, verbose_name="Генератор")
     sn = models.CharField(max_length=70, blank=True, verbose_name='Серейный номер')
     hours_alternator = models.IntegerField(blank=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
-        return f"{self.id, self.model_alternator,}"
+        return f"{self.sn, self.model_alternator,}"
     class Meta:
         verbose_name = 'Генератор'
         verbose_name_plural = 'Герератор'
@@ -97,25 +97,25 @@ class Location(models.Model):
     def __str__(self):
         return f"{self.name}"
     class Meta:
-        verbose_name = 'Локация'
-        verbose_name_plural = 'Локация'
-    class Meta:
         verbose_name = 'Участок'
         verbose_name_plural = 'Участок'
 
 class Post(models.Model):
     name = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=250, blank=True)
+    def __str__(self):
+        return f"{self.title}"
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Пост'
 
 class CreateDGU(models.Model):
     name = models.CharField(max_length=30, verbose_name="Номер Дгу")
-    long_name = models.CharField(max_length=30, null=True, verbose_name="Название Дгу")
-    post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, verbose_name="Название поста")
-    dvs = models.ForeignKey(DVS, on_delete=models.SET_NULL, null=True, verbose_name="ДВС")
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, verbose_name="Обьект")
+    long_name = models.CharField(max_length=30, null=True, blank=True, verbose_name="Название Дгу")
+    post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
+    dvs = models.ForeignKey(DVS, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="ДВС")
+    alternator = models.ForeignKey(Alternator, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="ДВС")
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True,blank=True, verbose_name="Обьект")
     work = models.BooleanField(default=False, verbose_name='в Работе')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Состояние")
     paralel = models.BooleanField(default=False, verbose_name='Паралель')

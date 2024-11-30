@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(CreateDGU)
 class CreateDGUAdmin(admin.ModelAdmin):
-    list_display = ('name', 'dvs', 'location',  'work', 'status', 'paralel', 'title',)
+    list_display = ('name', 'long_name', 'post_name', 'dvs', 'location',  'work', 'status', 'paralel', 'title',)
     list_display_links = ('name',)
     list_editable = ('location',)
     list_per_page = 10
@@ -13,7 +13,13 @@ class CreateDGUAdmin(admin.ModelAdmin):
 @admin.register(DVS)
 class DVSAdmin(admin.ModelAdmin):
     list_display = ('id', 'engine_hours', 'model_dvs', 'sn', 'title')
-    list_display_links = ('model_dvs',)
+    list_display_links = (('model_dvs',))
+
+
+@admin.register(Alternator)
+class AlternatorAdmin(admin.ModelAdmin):
+    list_display = ('id', 'hours_alternator', 'model_alternator', 'sn', 'title')
+    list_display_links = ('model_alternator',)
 @admin.register(Maker)
 class MakerAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -21,7 +27,14 @@ class MakerAdmin(admin.ModelAdmin):
 @admin.register(DVSmodel)
 class DVSmodelAdmin(admin.ModelAdmin):
     list_display = ('id', 'model_dvs', 'maker_dvs', 'power', 'volume', 'cylinders', 'title')
-    list_display_links = ('id', 'model_dvs',)
+    list_display_links = (('id', 'model_dvs',))
+
+@admin.register(AlternatorModel)
+class AlternatorModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'model_alternator', 'maker_alternator', 'power_res_kva',
+                    'power_res_kvt', 'power_rab_kva', 'power_rab_kvt', 'diod_most', 'diodes_1', 'diodes_2',
+                    'varistor', 'resistor', 'title')
+    list_display_links = ('id', 'model_alternator',)
 @admin.register(ObjectKES)
 class ObjectKESAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'manager', )
@@ -45,7 +58,10 @@ class StatusAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', )
     list_display_links = ('id', 'name')
 
-
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'title',)
+    list_display_links = ('name',)
 
 
 
