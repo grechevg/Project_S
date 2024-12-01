@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -113,7 +115,7 @@ class Post(models.Model):
 
 class CreateDGU(models.Model):
     name = models.CharField(max_length=30, verbose_name="Номер Дгу")
-    maker_dvs = models.ForeignKey(Maker, on_delete=models.SET_NULL, null=True, verbose_name="Производитель")
+    maker_dvs = models.ForeignKey(Maker, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Производитель")
     long_name = models.CharField(max_length=30, null=True, blank=True, verbose_name="Название Дгу")
     post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
     dvs = models.ForeignKey(DVS, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="ДВС")
@@ -127,7 +129,7 @@ class CreateDGU(models.Model):
     lsh = models.CharField(max_length=100, null=True, blank=True, verbose_name="Длинна * Ширина * Высота ")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание  проблем')
     # ТО
-    data_to = models.DateTimeField(blank=True, null=True, verbose_name='Дата последнего ТО')
+    data_to = models.DateField(blank=True, null=True,  verbose_name='Дата последнего ТО')
     motochas_to = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Моточасы последнего ТО')
     interval_to = models.PositiveIntegerField(null=True, blank=True, default=300, verbose_name='Межсервисный интервал')
 
@@ -159,19 +161,19 @@ class ReportDGU(models.Model):
                                default=None)
 
     # Показатели Отчета
-    narabotka = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Наработка')
-    nagruzka = models.PositiveIntegerField(null=True, blank=True, default=0,  verbose_name='Нагрузка')
-    active = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Активная Нагрузка')
-    reactive = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Реактивная  Нагрузка')
-    full_load = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Полная  Нагрузка')
-    l1 = models.PositiveSmallIntegerField(null=True, blank=True, default=0, verbose_name='L1')
-    l2 = models.PositiveSmallIntegerField(null=True, blank=True, default=0, verbose_name='L2')
-    l3 = models.PositiveSmallIntegerField(null=True, blank=True, default=0, verbose_name='L3')
+    narabotka = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Наработка')
+    nagruzka = models.PositiveIntegerField(null=True, blank=True, verbose_name='Нагрузка')
+    active = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Активная Нагрузка')
+    reactive = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Реактивная  Нагрузка')
+    full_load = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Полная  Нагрузка')
+    l1 = models.PositiveSmallIntegerField(null=True, blank=True,  verbose_name='L1')
+    l2 = models.PositiveSmallIntegerField(null=True, blank=True,  verbose_name='L2')
+    l3 = models.PositiveSmallIntegerField(null=True, blank=True,  verbose_name='L3')
 
-    dmasla = models.FloatField(blank=True, null=True, default=0, verbose_name='Давление масла')
-    tc = models.FloatField(blank=True, null=True, default=0, verbose_name='Темп. Охл. Жидкости')
-    akb = models.FloatField(blank=True, null=True, default=0, verbose_name='АКБ')
-    title = models.CharField(max_length=450,null=True, blank=True,  verbose_name='Замечания')
+    dmasla = models.FloatField(blank=True, null=True, verbose_name='Давление масла')
+    tc = models.FloatField(blank=True, null=True,  verbose_name='Темп. Охл. Жидкости')
+    akb = models.FloatField(blank=True, null=True, verbose_name='АКБ')
+    title = models.CharField(max_length=450, null=True, blank=True,  verbose_name='Замечания')
 
     time_create = models.DateTimeField(auto_now_add=True, blank=True, null=True,)
     time_update = models.DateTimeField(auto_now=True, blank=True, null=True,)
