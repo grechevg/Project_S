@@ -12,14 +12,14 @@ class CreateDGUAdmin(admin.ModelAdmin):
 
 @admin.register(DVS)
 class DVSAdmin(admin.ModelAdmin):
-    list_display = ('id', 'engine_hours', 'model_dvs', 'sn', 'title')
-    list_display_links = (('model_dvs',))
+    list_display = ('id', 'sn', 'engine_hours', 'model_dvs', 'title')
+    list_display_links = ('sn', 'model_dvs',)
 
 
 @admin.register(Alternator)
 class AlternatorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'hours_alternator', 'model_alternator', 'sn', 'title')
-    list_display_links = ('model_alternator',)
+    list_display = ('id','sn', 'hours_alternator', 'model_alternator',  'title')
+    list_display_links = ('sn', 'model_alternator',)
 @admin.register(Maker)
 class MakerAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -27,7 +27,7 @@ class MakerAdmin(admin.ModelAdmin):
 @admin.register(DVSmodel)
 class DVSmodelAdmin(admin.ModelAdmin):
     list_display = ('id', 'model_dvs', 'maker_dvs', 'power', 'volume', 'cylinders', 'title')
-    list_display_links = (('id', 'model_dvs',))
+    list_display_links = ('id', 'model_dvs',)
 
 @admin.register(AlternatorModel)
 class AlternatorModelAdmin(admin.ModelAdmin):
