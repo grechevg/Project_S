@@ -57,7 +57,7 @@ class DVSmodel(models.Model):
 class DVS(models.Model):
     model_dvs = models.ForeignKey(DVSmodel, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="ДВС")
     sn = models.CharField(max_length=70, blank=True, verbose_name='Серейный номер')
-    engine_hours = models.IntegerField(blank=True, verbose_name="Моточасы")
+    engine_hours = models.FloatField(blank=True, null=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
         return f"{self.sn, self.model_dvs,}"
@@ -68,7 +68,7 @@ class DVS(models.Model):
 class Alternator(models.Model):
     model_alternator = models.ForeignKey(AlternatorModel, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Генератор")
     sn = models.CharField(max_length=70, blank=True, verbose_name='Серейный номер')
-    hours_alternator = models.IntegerField(blank=True, verbose_name="Моточасы")
+    hours_alternator = models.FloatField(blank=True, null=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
         return f"{self.sn, self.model_alternator,}"
@@ -161,7 +161,7 @@ class ReportDGU(models.Model):
                                default=None)
 
     # Показатели Отчета
-    narabotka = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Наработка')
+    narabotka = models.FloatField(blank=True, null=True,  verbose_name='Наработка')
     nagruzka = models.PositiveIntegerField(null=True, blank=True, verbose_name='Нагрузка')
     active = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Активная Нагрузка')
     reactive = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Реактивная  Нагрузка')

@@ -25,12 +25,18 @@ def create_report(request, id):
         dgu_name = CreateDGU.objects.get(id=id)
         name = dgu_name.name
         lct = dgu_name.location.id
+        alter = dgu_name.alternator.hours_alternator
+
         hl = 'Неправильно заполнены поля'
         if request.method == "POST":
             report = ReportDGU()
             report.dgu_id = id
             report.author = request.user
-            report.narabotka = request.POST.get("narabotka")
+            report.narabotka = chec_zpt(request.POST.get("narabotka"))
+            dgu_name.alternator.hours_alternator = chec_zpt(request.POST.get("narabotka"))
+            dgu_name.alternator.save(update_fields=["hours_alternator"])
+            dgu_name.dvs.engine_hours = chec_zpt(request.POST.get("narabotka"))
+            dgu_name.dvs.save(update_fields=["engine_hours"])
             report.nagruzka = request.POST.get("nagruzka")
             report.active = request.POST.get("active")
             report.reactive = request.POST.get("reactive")
@@ -45,9 +51,8 @@ def create_report(request, id):
             report.save()
             return HttpResponseRedirect(f"/area/{lct}")
         else:
-            return render(request, "create_report.html", {"name": name, ''
-                                                                        'lct': lct,
-                                                                        "dgu_name": dgu_name,})
+            return render(request, "create_report.html", {
+                "name": name, 'lct': lct, "dgu_name": dgu_name, "alter": alter,})
     except:
         return render(request, "create_report.html", {"name": name, 'lct': lct,
                                                                                 "dgu_name": dgu_name, "hl": hl})
