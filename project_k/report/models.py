@@ -89,7 +89,6 @@ class ObjectKES(models.Model):
         verbose_name = 'Объект'
         verbose_name_plural = 'Объект'
 
-
 class Location(models.Model):
     name = models.CharField(max_length=30)
     object_kes = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True)
@@ -154,7 +153,6 @@ class CreateDGU(models.Model):
         verbose_name = 'ДГУ'
         verbose_name_plural = 'ДГУ'
 
-
 class ReportDGU(models.Model):
     dgu = models.ForeignKey(CreateDGU, on_delete=models.SET_NULL, null=True, verbose_name="Номер Дгу")
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='posts', null=True,
@@ -183,5 +181,53 @@ class ReportDGU(models.Model):
         verbose_name = 'Ежедневный отчет'
         verbose_name_plural = 'Ежедневный отчет'
 
+class TKModel(models.Model):
+    name = models.CharField(max_length=250, blank=True, null=True,verbose_name="Название Контейнера")
+    title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
+    weight = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Вес пустого Контейнера кг')
+    lsh = models.CharField(max_length=100, null=True, blank=True, verbose_name="Длинна * Ширина * Высота ")
 
+    def __str__(self):
+        return f"{self.name}"
+    class Meta:
+        verbose_name = 'Модель ТК'
+        verbose_name_plural = 'Модель ТК'
 
+class EmkostModel(models.Model):
+    name = models.CharField(max_length=250, blank=True, null=True,verbose_name="Название емкости")
+    title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
+    volume = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name='Объем  л.')
+    weight = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Вес пустой кг')
+    lsh = models.CharField(max_length=100, null=True, blank=True, verbose_name="Длинна * Ширина * Высота ")
+
+    def __str__(self):
+        return f"{self.name}"
+    class Meta:
+        verbose_name = 'Модель Емкости'
+        verbose_name_plural = 'Модель Емкости'
+
+class Emkost(models.Model):
+    number = models.CharField(max_length=250, blank=True, null=True,verbose_name="Номер емкости")
+    model_em = models.ForeignKey(EmkostModel, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название емкости")
+    post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True,verbose_name="Название локации")
+    title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
+    meter = models.FloatField(blank=True, null=True,  verbose_name='Измерения см.')
+
+    def __str__(self):
+        return f"{self.number}"
+    class Meta:
+        verbose_name = 'Емкость'
+        verbose_name_plural = 'Емкость'
+
+class TK(models.Model):
+    number = models.CharField(max_length=250, blank=True, null=True,verbose_name="Номер емкости")
+    model_tk = models.ForeignKey(TKModel, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название Контейнера")
+    emkost = models.ForeignKey(Emkost, on_delete=models.CASCADE, null=True, blank=True,verbose_name="Емкость")
+    title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
+
+    def __str__(self):
+        return f"{self.number}"
+    class Meta:
+        verbose_name = 'ТК'
+        verbose_name_plural = 'ТК'

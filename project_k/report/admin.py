@@ -15,15 +15,16 @@ class DVSAdmin(admin.ModelAdmin):
     list_display = ('id', 'sn', 'engine_hours', 'model_dvs', 'title')
     list_display_links = ('sn', 'model_dvs',)
 
-
 @admin.register(Alternator)
 class AlternatorAdmin(admin.ModelAdmin):
     list_display = ('id','sn', 'hours_alternator', 'model_alternator',  'title')
     list_display_links = ('sn', 'model_alternator',)
+
 @admin.register(Maker)
 class MakerAdmin(admin.ModelAdmin):
     list_display = ('name',)
     list_display_links = ('name',)
+
 @admin.register(DVSmodel)
 class DVSmodelAdmin(admin.ModelAdmin):
     list_display = ('id', 'model_dvs', 'maker_dvs', 'power', 'volume', 'cylinders', 'title')
@@ -35,11 +36,11 @@ class AlternatorModelAdmin(admin.ModelAdmin):
                     'power_res_kvt', 'power_rab_kva', 'power_rab_kvt', 'diod_most', 'diodes_1', 'diodes_2',
                     'varistor', 'resistor', 'title')
     list_display_links = ('id', 'model_alternator',)
+
 @admin.register(ObjectKES)
 class ObjectKESAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'manager', )
     list_display_links = ('id', 'name')
-
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -53,6 +54,7 @@ class LocationAdmin(admin.ModelAdmin):
 class ReportDGUAdmin(admin.ModelAdmin):
     list_display = ('id', 'dgu', 'title', 'tc', 'time_create', 'time_update')
     list_display_links = ('id', 'dgu')
+
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', )
@@ -63,5 +65,22 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'title',)
     list_display_links = ('name',)
 
+@admin.register(TKModel)
+class TKModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'title',)
+    list_display_links = ('id', 'name',)
 
+@admin.register(EmkostModel)
+class EmkostModelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'title',)
+    list_display_links = ('id','name',)
 
+@admin.register(Emkost)
+class EmkostAdmin(admin.ModelAdmin):
+    list_display = ('id', 'number', 'meter', 'title',)
+    list_display_links = ('id', 'number',)
+
+@admin.register(TK)
+class TKAdmin(admin.ModelAdmin):
+    list_display = ('id', 'number', 'title',)
+    list_display_links = ('id', 'number',)

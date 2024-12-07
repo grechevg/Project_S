@@ -14,7 +14,6 @@ def index(request):
     object_kes = ObjectKES.objects.filter(public=True,)
     return render(request, "index.html", {'dgus': dgus, 'location': location, 'object_kes': object_kes})
 
-
 @login_required
 def create_report(request, id):
     def chec_zpt(text):
@@ -27,7 +26,6 @@ def create_report(request, id):
         lct = dgu_name.location.id
         alter = dgu_name.alternator.hours_alternator
 
-        hl = 'Неправильно заполнены поля'
         if request.method == "POST":
             report = ReportDGU()
             report.dgu_id = id
@@ -54,10 +52,7 @@ def create_report(request, id):
             return render(request, "create_report.html", {
                 "name": name, 'lct': lct, "dgu_name": dgu_name, "alter": alter,})
     except:
-        return render(request, "create_report.html", {"name": name, 'lct': lct,
-                                                                                "dgu_name": dgu_name, "hl": hl})
-
-
+        return HttpResponseNotFound("<h2>Product not found</h2>")
 
 @login_required
 def create_dgu(request):
@@ -84,7 +79,6 @@ def edit_dgu(request, id):
     except :
         return HttpResponseNotFound("<h2>Product not found</h2>")
 
-
 @login_required
 def delete_dgu(request, id):
     try:
@@ -101,6 +95,7 @@ def object_kes(request, id):
     object_kes = ObjectKES.objects.get(id=id)
     return render(request, "object_kes.html", {'dgus': dgus,
                                                'location': location, 'object_kes': object_kes})
+
 @login_required
 def area(request, id):
     y, m, d = (int(i) for i in date.today().isoformat().split("-"))
