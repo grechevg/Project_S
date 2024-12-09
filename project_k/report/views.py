@@ -16,16 +16,14 @@ def index(request):
 
 @login_required
 def create_report(request, id):
+    dgu_name = CreateDGU.objects.get(id=id)
+    name = dgu_name.name
     def chec_zpt(text):
         return text.replace(',', '.') if ',' in text else text
 
-
     try:
-        dgu_name = CreateDGU.objects.get(id=id)
-        name = dgu_name.name
         lct = dgu_name.location.id
         alter = dgu_name.alternator.hours_alternator
-
         if request.method == "POST":
             report = ReportDGU()
             report.dgu_id = id
@@ -49,10 +47,10 @@ def create_report(request, id):
             report.save()
             return HttpResponseRedirect(f"/area/{lct}")
         else:
-            return render(request, "create_report.html", {
-                "name": name, 'lct': lct, "dgu_name": dgu_name, "alter": alter,})
-    except:
-        return HttpResponseNotFound("<h2>Product not found</h2>")
+            return render(request, "create_report.html", {"name": name, 'lct': lct, "dgu_name": dgu_name, "alter": alter,})
+    except Exception as exc:
+        iskl = exc.__class__.__name__
+        return render(request, "create_report.html", {"name": name, 'iskl': iskl})
 
 @login_required
 def create_dgu(request):

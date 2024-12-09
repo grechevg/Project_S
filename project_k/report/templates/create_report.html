@@ -6,7 +6,7 @@
 	<form method="POST">
     {% csrf_token %}
 			<fieldset>
-				<legend>Ввод Данных ДГУ № {{name}}  {{alter}}</legend>
+				<legend>Ввод Данных ДГУ № {{name}}  <p>{{ iskl }} </p> <br></legend>
 				<br>
 				{% if dgu_name.narabotka %}
 					<p>Наработка: <input type="text" name = "narabotka" placeholder = "Введите моточасы"> м/ч </p><br> <br>
