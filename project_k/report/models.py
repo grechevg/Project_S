@@ -23,10 +23,10 @@ class Maker(models.Model):
 class AlternatorModel(models.Model):
     model_alternator = models.CharField(blank=True, max_length=30, verbose_name='Модель Генератора')
     maker_alternator = models.ForeignKey(Maker, on_delete=models.SET_NULL, null=True, verbose_name="Производитель")
-    power_res_kva = models.IntegerField(blank=True, verbose_name="Мощьность Резервная кВа")
-    power_res_kvt = models.IntegerField(blank=True, verbose_name="Мощьность Резервная кВт")
-    power_rab_kva = models.IntegerField(blank=True, verbose_name="Мощьность Основная кВа")
-    power_rab_kvt = models.IntegerField(blank=True, verbose_name="Мощьность Основная кВт")
+    power_res_kva = models.IntegerField(blank=True, null=True, verbose_name="Мощьность Резервная кВа")
+    power_res_kvt = models.IntegerField(blank=True, null=True, verbose_name="Мощьность Резервная кВт")
+    power_rab_kva = models.IntegerField(blank=True, null=True, verbose_name="Мощьность Основная кВа")
+    power_rab_kvt = models.IntegerField(blank=True, null=True, verbose_name="Мощьность Основная кВт")
     weight = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Вес кг')
     diod_most = models.CharField(blank=True, max_length=30, verbose_name='Диодный мост')
     diodes_1 = models.CharField(blank=True, max_length=30, verbose_name='Диод 1')
@@ -137,25 +137,63 @@ class EmkostModel(models.Model):
         verbose_name = 'Модель Емкости'
         verbose_name_plural = 'Модель Емкости'
 
-
-
 class Pump_meter(models.Model):
     name = models.CharField(max_length=10, blank=True, null=True,verbose_name="Номер насоса")
     title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
     meter = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания счетчика насоса')
     meter1 = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания счетчика насоса короткое')
-    post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True,
-                                 verbose_name="Название локации")
 
     def __str__(self):
         return f"{self.name}"
     class Meta:
-        verbose_name = 'Номер насоса'
-        verbose_name_plural = 'Номер насоса'
+        verbose_name = 'Насос топливный'
+        verbose_name_plural = 'Насосы топливные'
 
+class Emkost(models.Model):
+    number = models.CharField(max_length=50, blank=True, null=True, verbose_name="Номер емкости")
+    model_em = models.ForeignKey(EmkostModel, on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name="Название емкости")
+    model_tk = models.ForeignKey(TKModel, on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name="Название Контейнера")
+    pitat = models.BooleanField(default=True, verbose_name='Питательная емкость')
+    post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True,
+                                 verbose_name="Название локации")
+    pump_meter = models.ForeignKey(Pump_meter, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="номер насоса")
+    title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Примичание")
+    meter = models.FloatField(blank=True, null=True, verbose_name='Измерения см.')
 
+    def __str__(self):
+        return f"{self.number}"
 
+    class Meta:
+        verbose_name = 'Емкость'
+        verbose_name_plural = 'Емкость'
+
+class TK(models.Model):
+    number = models.CharField(max_length=50, blank=True, null=True, verbose_name="Номер емкости")
+
+    emkost = models.ForeignKey(Emkost, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Емкость")
+    title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Примичание")
+
+    def __str__(self):
+        return f"{self.number}"
+
+    class Meta:
+        verbose_name = 'ТК'
+        verbose_name_plural = 'ТК'
+
+class Mercury(models.Model):
+    name = models.CharField(max_length=10, blank=True, null=True,verbose_name="Номер Счетчика")
+    title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
+    meter = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания Меркурия')
+    meter1 = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания Меркурия короткое')
+
+    def __str__(self):
+        return f"{self.name}"
+    class Meta:
+        verbose_name = 'Mercury'
+        verbose_name_plural = 'Mercury'
 
 class CreateDGU(models.Model):
     name = models.CharField(max_length=30, verbose_name="Номер Дгу")
@@ -164,9 +202,13 @@ class CreateDGU(models.Model):
     post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
     dvs = models.ForeignKey(DVS, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="ДВС")
     alternator = models.ForeignKey(Alternator, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Генератор")
-    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True,blank=True, verbose_name="Обьект")
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Обьект")
     work = models.BooleanField(default=False, verbose_name='в Работе')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Состояние")
+
+    mercury = models.ForeignKey(Mercury, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Счетчик меркурий")
+    emkost = models.ForeignKey(Emkost, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Номер емкости")
+
     paralel = models.BooleanField(default=False, verbose_name='Паралель')
     koguch = models.BooleanField(default=False, verbose_name='Кожухное Исполнение')
     weight = models.PositiveIntegerField(null=True, blank=True, default=0, verbose_name='Вес кг')
@@ -176,6 +218,7 @@ class CreateDGU(models.Model):
     data_to = models.DateField(blank=True, null=True,  verbose_name='Дата последнего ТО')
     motochas_to = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Моточасы последнего ТО')
     interval_to = models.PositiveIntegerField(null=True, blank=True, default=300, verbose_name='Межсервисный интервал')
+
 
     # настройка отчета
     narabotka = models.BooleanField(default=True, verbose_name='Наработка')
@@ -196,71 +239,12 @@ class CreateDGU(models.Model):
     tk = models.BooleanField(default=True, verbose_name='ТК')
 
 
-
-
     def __str__(self):
         return f"{self.name}"
 
     class Meta:
         verbose_name = 'ДГУ'
         verbose_name_plural = 'ДГУ'
-
-
-class Emkost(models.Model):
-    number = models.CharField(max_length=50, blank=True, null=True, verbose_name="Номер емкости")
-    model_em = models.ForeignKey(EmkostModel, on_delete=models.SET_NULL, null=True, blank=True,
-                                 verbose_name="Название емкости")
-    post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True,
-                                 verbose_name="Название локации")
-    dgu1 = models.ForeignKey(CreateDGU, on_delete=models.CASCADE, null=True, blank=True, verbose_name="ДГУ 1")
-    dgu2 = models.ForeignKey(CreateDGU, on_delete=models.CASCADE, null=True, blank=True, verbose_name="ДГУ 2")
-    dgu3 = models.ForeignKey(CreateDGU, on_delete=models.CASCADE, null=True, blank=True, verbose_name="ДГУ 3")
-
-    title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Примичание")
-    meter = models.FloatField(blank=True, null=True, verbose_name='Измерения см.')
-
-    def __str__(self):
-        return f"{self.number}"
-
-    class Meta:
-        verbose_name = 'Емкость'
-        verbose_name_plural = 'Емкость'
-
-
-class TK(models.Model):
-    number = models.CharField(max_length=50, blank=True, null=True, verbose_name="Номер емкости")
-    model_tk = models.ForeignKey(TKModel, on_delete=models.SET_NULL, null=True, blank=True,
-                                 verbose_name="Название Контейнера")
-    emkost = models.ForeignKey(Emkost, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Емкость")
-    title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Примичание")
-
-    def __str__(self):
-        return f"{self.number}"
-
-    class Meta:
-        verbose_name = 'ТК'
-        verbose_name_plural = 'ТК'
-
-
-class Mercury(models.Model):
-    name = models.CharField(max_length=10, blank=True, null=True,verbose_name="Номер Счетчика")
-    title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
-    meter = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания Меркурия')
-    meter1 = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания Меркурия короткое')
-    post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True, blank=True,
-                                 verbose_name="Название локации")
-    ДГУ1 = models.ForeignKey(CreateDGU, on_delete=models.CASCADE, null=True, blank=True,
-                                 verbose_name="ДГУ 1")
-    ДГУ2 = models.ForeignKey(CreateDGU, on_delete=models.CASCADE, null=True, blank=True,
-                             verbose_name="ДГУ 1")
-    def __str__(self):
-        return f"{self.name}"
-    class Meta:
-        verbose_name = 'Mercury'
-        verbose_name_plural = 'Mercury'
-
 
 class ReportDGU(models.Model):
     dgu = models.ForeignKey(CreateDGU, on_delete=models.SET_NULL, null=True, verbose_name="Номер Дгу")

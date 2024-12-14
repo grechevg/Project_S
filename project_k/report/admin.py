@@ -77,12 +77,7 @@ class EmkostModelAdmin(admin.ModelAdmin):
 
 @admin.register(Emkost)
 class EmkostAdmin(admin.ModelAdmin):
-    list_display = ('id', 'number', 'meter', 'title',)
-    list_display_links = ('id', 'number',)
-
-@admin.register(TK)
-class TKAdmin(admin.ModelAdmin):
-    list_display = ('id', 'number', 'title',)
+    list_display = ('id', 'number', 'meter', 'post_name',)
     list_display_links = ('id', 'number',)
 
 
