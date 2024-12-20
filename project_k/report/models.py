@@ -197,6 +197,7 @@ class Mercury(models.Model):
 
 class CreateDGU(models.Model):
     name = models.CharField(max_length=30, verbose_name="Номер Дгу")
+    engine_hours = models.FloatField(blank=True, null=True, verbose_name="Моточасы")
     maker_dvs = models.ForeignKey(Maker, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Производитель")
     long_name = models.CharField(max_length=30, null=True, blank=True, verbose_name="Название Дгу")
     post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
@@ -216,7 +217,7 @@ class CreateDGU(models.Model):
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание  проблем')
     # ТО
     data_to = models.DateField(blank=True, null=True,  verbose_name='Дата последнего ТО')
-    motochas_to = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Моточасы последнего ТО')
+    motochas_to = models.FloatField(blank=True, null=True,  verbose_name='Моточасы последнего ТО')
     interval_to = models.PositiveIntegerField(null=True, blank=True, default=300, verbose_name='Межсервисный интервал')
 
 

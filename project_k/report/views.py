@@ -28,11 +28,18 @@ def create_report(request, id):
             report = ReportDGU()
             report.dgu_id = id
             report.author = request.user
-            report.narabotka = chec_zpt(request.POST.get("narabotka"))
-            dgu_name.alternator.hours_alternator = chec_zpt(request.POST.get("narabotka"))
+            moto_hours = chec_zpt(request.POST.get("narabotka"))
+            report.narabotka = moto_hours
+            nar = float(moto_hours) - dgu_name.engine_hours
+            # dgu_name.engine_hours = chec_zpt(request.POST.get("narabotka"))
+            # dgu_name.engine_hours.save(update_fields=["engine_hours"])
+            print(type(dgu_name.alternator.hours_alternator))
+            dgu_name.alternator.hours_alternator = str(dgu_name.alternator.hours_alternator + nar)
             dgu_name.alternator.save(update_fields=["hours_alternator"])
-            dgu_name.dvs.engine_hours = chec_zpt(request.POST.get("narabotka"))
+            dgu_name.dvs.engine_hours = str(dgu_name.dvs.engine_hours + nar)
             dgu_name.dvs.save(update_fields=["engine_hours"])
+            dgu_name.engine_hours = moto_hours
+            dgu_name.engine_hours.save(update_fields=["engine_hours"])
             report.nagruzka = request.POST.get("nagruzka")
             report.active = request.POST.get("active")
             report.reactive = request.POST.get("reactive")
