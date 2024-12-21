@@ -57,7 +57,7 @@ class DVSmodel(models.Model):
 class DVS(models.Model):
     model_dvs = models.ForeignKey(DVSmodel, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="ДВС")
     sn = models.CharField(max_length=70, blank=True, verbose_name='Серейный номер')
-    engine_hours = models.FloatField(blank=True, null=True, verbose_name="Моточасы")
+    engine_hours = models.FloatField(default=0, null=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
         return f"{self.sn, self.model_dvs,}"
@@ -68,7 +68,7 @@ class DVS(models.Model):
 class Alternator(models.Model):
     model_alternator = models.ForeignKey(AlternatorModel, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Генератор")
     sn = models.CharField(max_length=70, blank=True, verbose_name='Серейный номер')
-    hours_alternator = models.FloatField(blank=True, null=True, verbose_name="Моточасы")
+    hours_alternator = models.FloatField(default=0, null=True, verbose_name="Моточасы")
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание')
     def __str__(self):
         return f"{self.sn, self.model_alternator,}"
@@ -140,8 +140,8 @@ class EmkostModel(models.Model):
 class Pump_meter(models.Model):
     name = models.CharField(max_length=10, blank=True, null=True,verbose_name="Номер насоса")
     title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
-    meter = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания счетчика насоса')
-    meter1 = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания счетчика насоса короткое')
+    meter = models.FloatField(null=True, default=0, verbose_name='Покозания счетчика насоса')
+    meter1 = models.FloatField(null=True,  default=0, verbose_name='Покозания счетчика насоса короткое')
 
     def __str__(self):
         return f"{self.name}"
@@ -161,7 +161,7 @@ class Emkost(models.Model):
                                  verbose_name="Название локации")
     pump_meter = models.ForeignKey(Pump_meter, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="номер насоса")
     title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Примичание")
-    meter = models.FloatField(blank=True, null=True, verbose_name='Измерения см.')
+    meter = models.FloatField(null=True, default=0, verbose_name='Измерения см.')
 
     def __str__(self):
         return f"{self.number}"
@@ -172,7 +172,6 @@ class Emkost(models.Model):
 
 class TK(models.Model):
     number = models.CharField(max_length=50, blank=True, null=True, verbose_name="Номер емкости")
-
     emkost = models.ForeignKey(Emkost, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Емкость")
     title = models.CharField(max_length=250, blank=True, null=True, verbose_name="Примичание")
 
@@ -186,8 +185,8 @@ class TK(models.Model):
 class Mercury(models.Model):
     name = models.CharField(max_length=10, blank=True, null=True,verbose_name="Номер Счетчика")
     title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
-    meter = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания Меркурия')
-    meter1 = models.FloatField(null=True, blank=True, default=0, verbose_name='Покозания Меркурия короткое')
+    meter = models.FloatField(null=True, default=0, verbose_name='Покозания Меркурия')
+    meter1 = models.FloatField(null=True,  default=0, verbose_name='Покозания Меркурия короткое')
 
     def __str__(self):
         return f"{self.name}"
@@ -197,7 +196,7 @@ class Mercury(models.Model):
 
 class CreateDGU(models.Model):
     name = models.CharField(max_length=30, verbose_name="Номер Дгу")
-    engine_hours = models.FloatField(blank=True, null=True, verbose_name="Моточасы")
+    hours = models.FloatField(null=True, default=0, verbose_name='МотоЧасы')
     maker_dvs = models.ForeignKey(Maker, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Производитель")
     long_name = models.CharField(max_length=30, null=True, blank=True, verbose_name="Название Дгу")
     post_name = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Название поста")
@@ -206,9 +205,13 @@ class CreateDGU(models.Model):
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Обьект")
     work = models.BooleanField(default=False, verbose_name='в Работе')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Состояние")
-
+    # Топливо
+    emkost_nak = models.ForeignKey(TK, on_delete=models.SET_NULL,
+                                   null=True, blank=True, verbose_name="Номер накопительной емкости")
     mercury = models.ForeignKey(Mercury, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Счетчик меркурий")
-    emkost = models.ForeignKey(Emkost, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Номер емкости")
+    pump_meter = models.ForeignKey(Pump_meter, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Счетчик меркурий")
+    emkost_pit = models.ForeignKey(Emkost, on_delete=models.SET_NULL,
+                                   null=True, blank=True, verbose_name="Номер питательной емкости")
 
     paralel = models.BooleanField(default=False, verbose_name='Паралель')
     koguch = models.BooleanField(default=False, verbose_name='Кожухное Исполнение')
@@ -217,16 +220,15 @@ class CreateDGU(models.Model):
     title = models.CharField(max_length=250, blank=True, verbose_name='Описание  проблем')
     # ТО
     data_to = models.DateField(blank=True, null=True,  verbose_name='Дата последнего ТО')
-    motochas_to = models.FloatField(blank=True, null=True,  verbose_name='Моточасы последнего ТО')
+    motochas_to = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Моточасы последнего ТО')
     interval_to = models.PositiveIntegerField(null=True, blank=True, default=300, verbose_name='Межсервисный интервал')
 
-
     # настройка отчета
-    narabotka = models.BooleanField(default=True, verbose_name='Наработка')
+
     nagruzka = models.BooleanField(default=True, verbose_name='Нагрузка')
     active = models.BooleanField(default=True, verbose_name='Активная Нагрузка')
-    reactive = models.BooleanField(default=True, verbose_name='Реактивная  Нагрузка')
-    full_load = models.BooleanField(default=True, verbose_name='Полная  Нагрузка')
+    reactive = models.BooleanField(default=True, verbose_name='Реактивная Нагрузка')
+    full_load = models.BooleanField(default=True, verbose_name='Полная Нагрузка')
     l1 = models.BooleanField(default=True, verbose_name='L1')
     l2 = models.BooleanField(default=True, verbose_name='L2')
     l3 = models.BooleanField(default=True, verbose_name='L3')
@@ -237,7 +239,10 @@ class CreateDGU(models.Model):
     akb = models.BooleanField(default=True, verbose_name='АКБ')
     primechanie = models.BooleanField(default=True, verbose_name='Примечания')
 
-    tk = models.BooleanField(default=True, verbose_name='ТК')
+    tk_pit = models.BooleanField(default=True, verbose_name='ТК')
+    emk_nak = models.BooleanField(default=True, verbose_name='Емкость питательная')
+    pump_m = models.BooleanField(default=True, verbose_name='Счетчик Насоса')
+    mrc = models.BooleanField(default=False, verbose_name='Меркурий')
 
 
     def __str__(self):

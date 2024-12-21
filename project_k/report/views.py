@@ -28,18 +28,16 @@ def create_report(request, id):
             report = ReportDGU()
             report.dgu_id = id
             report.author = request.user
-            moto_hours = chec_zpt(request.POST.get("narabotka"))
-            report.narabotka = moto_hours
-            nar = float(moto_hours) - dgu_name.engine_hours
-            # dgu_name.engine_hours = chec_zpt(request.POST.get("narabotka"))
-            # dgu_name.engine_hours.save(update_fields=["engine_hours"])
-            print(type(dgu_name.alternator.hours_alternator))
-            dgu_name.alternator.hours_alternator = str(dgu_name.alternator.hours_alternator + nar)
+            mot_hours = float(chec_zpt(request.POST.get("narabotka")))
+            report.narabotka = str(mot_hours)
+            nar = mot_hours - dgu_name.hours
+            print(nar)
+            dgu_name.alternator.hours_alternator = dgu_name.alternator.hours_alternator + nar
             dgu_name.alternator.save(update_fields=["hours_alternator"])
-            dgu_name.dvs.engine_hours = str(dgu_name.dvs.engine_hours + nar)
+            dgu_name.dvs.engine_hours = dgu_name.dvs.engine_hours + nar
             dgu_name.dvs.save(update_fields=["engine_hours"])
-            dgu_name.engine_hours = moto_hours
-            dgu_name.engine_hours.save(update_fields=["engine_hours"])
+            dgu_name.hours = mot_hours
+            dgu_name.save(update_fields=["hours"])
             report.nagruzka = request.POST.get("nagruzka")
             report.active = request.POST.get("active")
             report.reactive = request.POST.get("reactive")
@@ -50,7 +48,13 @@ def create_report(request, id):
             report.dmasla = chec_zpt(request.POST.get("dmasla"))
             report.tc = chec_zpt(request.POST.get("tc"))
             report.akb = chec_zpt(request.POST.get("akb"))
+            report.emkost_nak = request.POST.get("emkost_nak")
+            report.emkost_pit = request.POST.get("emkost_pit")
+            report.pump_meter = request.POST.get("pump_meter")
+
+            report.mercury = request.POST.get("mercury")
             report.title = request.POST.get("title")
+
             report.save()
             return HttpResponseRedirect(f"/area/{lct}")
         else:
