@@ -80,6 +80,10 @@ class EmkostAdmin(admin.ModelAdmin):
     list_display = ('id', 'number', 'meter', 'post_name',)
     list_display_links = ('id', 'number',)
 
+@admin.register(TK)
+class TKAdmin(admin.ModelAdmin):
+    list_display = ('id', 'number', )
+    list_display_links = ('id', 'number',)
 
 @admin.register(Pump_meter)
 class Pump_meterAdmin(admin.ModelAdmin):

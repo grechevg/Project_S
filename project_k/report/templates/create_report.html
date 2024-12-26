@@ -8,10 +8,8 @@
 			<fieldset>
 				<legend>Ввод Данных ДГУ № {{name}}  <p>{{ iskl }} </p> <br></legend>
 				<br>
+				<p>Моточасы: <input type="text" name = "narabotka" placeholder = "Введите моточасы"> м/ч </p><br> <br>
 
-					<p>Моточасы: <input type="text" name = "narabotka" placeholder = "Введите моточасы"> м/ч </p><br> <br>
-
-				{% endif %}
 				{% if dgu_name.narabotka %}
 					<p>Нагрузка: <input type="text" name = "nagruzka" placeholder = "Нагрузка"> кВт</p> <br> <br>
 				{% else %}
@@ -50,6 +48,24 @@
 				{% endif %}
 				{% if dgu_name.akb %}
 					<p>АКБ: <input type="text" name="akb" placeholder = "Температура Антифриза"> V</p><br> <br>
+				{% else %}
+				{% endif %}
+			<!-- Топливо	счетчики -->
+
+				{% if dgu_name.tk_nak %}
+					<p>ТК накоп {{ emkost_nak.number }} <input type="text" name="emkost_nak" placeholder = "Топливный контейнер"> см</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.emk_pit %}
+					<p>Емкость пит <input type="text" name="emkost_pit" placeholder = "Емкость питательная"> см</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.pump_m %}
+					<p>Счетчик Насоса <input type="text" name="pump_meter" placeholder = "Счетчик Насоса"> л</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.mrc %}
+					<p>Меркурий <input type="text" name="mercury" placeholder = "Меркурий"> </p><br> <br>
 				{% else %}
 				{% endif %}
 				<p>Примечания:</p><p><textarea  name="title" rows="5" cols="35"> </textarea></p><br> <br>

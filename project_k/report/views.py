@@ -31,7 +31,6 @@ def create_report(request, id):
             mot_hours = float(chec_zpt(request.POST.get("narabotka")))
             report.narabotka = str(mot_hours)
             nar = mot_hours - dgu_name.hours
-            print(nar)
             dgu_name.alternator.hours_alternator = dgu_name.alternator.hours_alternator + nar
             dgu_name.alternator.save(update_fields=["hours_alternator"])
             dgu_name.dvs.engine_hours = dgu_name.dvs.engine_hours + nar
@@ -48,11 +47,13 @@ def create_report(request, id):
             report.dmasla = chec_zpt(request.POST.get("dmasla"))
             report.tc = chec_zpt(request.POST.get("tc"))
             report.akb = chec_zpt(request.POST.get("akb"))
-            report.emkost_nak = request.POST.get("emkost_nak")
-            report.emkost_pit = request.POST.get("emkost_pit")
-            report.pump_meter = request.POST.get("pump_meter")
+            # Топливо
 
-            report.mercury = request.POST.get("mercury")
+            report.emkost_nak_pok = request.POST.get("emkost_nak")
+            report.emkost_pit_pok = request.POST.get("emkost_pit")
+            report.pump_meter_pok = request.POST.get("pump_meter")
+
+            report.mercury_pok = request.POST.get("mercury")
             report.title = request.POST.get("title")
 
             report.save()

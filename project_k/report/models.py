@@ -183,7 +183,7 @@ class TK(models.Model):
         verbose_name_plural = 'ТК'
 
 class Mercury(models.Model):
-    name = models.CharField(max_length=10, blank=True, null=True,verbose_name="Номер Счетчика")
+    name = models.CharField(max_length=12, blank=True, null=True,verbose_name="Номер Счетчика")
     title = models.CharField(max_length=250, blank=True, null=True,verbose_name="Примичание")
     meter = models.FloatField(null=True, default=0, verbose_name='Покозания Меркурия')
     meter1 = models.FloatField(null=True,  default=0, verbose_name='Покозания Меркурия короткое')
@@ -206,12 +206,15 @@ class CreateDGU(models.Model):
     work = models.BooleanField(default=False, verbose_name='в Работе')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name="Состояние")
     # Топливо
-    emkost_nak = models.ForeignKey(TK, on_delete=models.SET_NULL,
+    emkost_nak = models.ForeignKey(TK, on_delete=models.SET_NULL, default=1,
                                    null=True, blank=True, verbose_name="Номер накопительной емкости")
-    mercury = models.ForeignKey(Mercury, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Счетчик меркурий")
-    pump_meter = models.ForeignKey(Pump_meter, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Счетчик меркурий")
-    emkost_pit = models.ForeignKey(Emkost, on_delete=models.SET_NULL,
+    emkost_pit = models.ForeignKey(Emkost, on_delete=models.SET_NULL, default=1,
                                    null=True, blank=True, verbose_name="Номер питательной емкости")
+    pump_meter = models.ForeignKey(Pump_meter, on_delete=models.SET_NULL, default=1,
+                                   null=True, blank=True, verbose_name="Счетчик насоса")
+    mercury = models.ForeignKey(Mercury, on_delete=models.SET_NULL, null=True, blank=True, default=1,
+                                verbose_name="Счетчик меркурий")
+
 
     paralel = models.BooleanField(default=False, verbose_name='Паралель')
     koguch = models.BooleanField(default=False, verbose_name='Кожухное Исполнение')
@@ -239,8 +242,8 @@ class CreateDGU(models.Model):
     akb = models.BooleanField(default=True, verbose_name='АКБ')
     primechanie = models.BooleanField(default=True, verbose_name='Примечания')
 
-    tk_pit = models.BooleanField(default=True, verbose_name='ТК')
-    emk_nak = models.BooleanField(default=True, verbose_name='Емкость питательная')
+    tk_nak = models.BooleanField(default=True, verbose_name='ТК')
+    emk_pit = models.BooleanField(default=True, verbose_name='Емкость питательная')
     pump_m = models.BooleanField(default=True, verbose_name='Счетчик Насоса')
     mrc = models.BooleanField(default=False, verbose_name='Меркурий')
 
@@ -274,6 +277,18 @@ class ReportDGU(models.Model):
     akb = models.FloatField(blank=True, null=True, verbose_name='АКБ')
     title = models.CharField(max_length=450, null=True, blank=True,  verbose_name='Замечания')
     # Топливо
+    emkost_nak = models.ForeignKey(TK, on_delete=models.SET_NULL,
+                                   null=True, blank=True, verbose_name="Номер накопительной емкости")
+    emkost_nak_pok = models.FloatField(blank=True, null=True,  verbose_name='Уровень ДТ  см')
+    emkost_pit = models.ForeignKey(Emkost, on_delete=models.SET_NULL,
+                                   null=True, blank=True, verbose_name="Номер питательной емкости")
+    emkost_pit_pok = models.FloatField(blank=True, null=True,  verbose_name='Уровень ДТ  см')
+    pump_meter = models.ForeignKey(Pump_meter, on_delete=models.SET_NULL,
+                                   null=True, blank=True, verbose_name="Счетчик насоса")
+    pump_meter_pok = models.FloatField(blank=True, null=True,  verbose_name='Счетчик л')
+    mercury = models.ForeignKey(Mercury, on_delete=models.SET_NULL, null=True, blank=True,
+                                verbose_name="Счетчик меркурий")
+    mercury_pok = models.FloatField(null=True, default=0, verbose_name='Покозания Меркурия')
 
 
     time_create = models.DateTimeField(auto_now_add=True, blank=True, null=True,)
