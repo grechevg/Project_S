@@ -89,6 +89,7 @@ class ObjectKES(models.Model):
         verbose_name = 'Объект'
         verbose_name_plural = 'Объект'
 
+
 class Location(models.Model):
     name = models.CharField(max_length=30)
     object_kes = models.ForeignKey(ObjectKES, on_delete=models.SET_NULL, null=True)
@@ -235,6 +236,7 @@ class CreateDGU(models.Model):
     l1 = models.BooleanField(default=True, verbose_name='L1')
     l2 = models.BooleanField(default=True, verbose_name='L2')
     l3 = models.BooleanField(default=True, verbose_name='L3')
+    total_power = models.BooleanField(default=True, verbose_name='Общая мощность')
     voltage = models.BooleanField(default=True, verbose_name='Напряжение')
     frequency = models.BooleanField(default=True, verbose_name='Частота')
     dmasla = models.BooleanField(default=True, verbose_name='Давление масла')
@@ -261,7 +263,7 @@ class ReportDGU(models.Model):
                                default=None)
 
     # Показатели Отчета
-    narabotka = models.FloatField(blank=True, null=True,  verbose_name='Наработка')
+    narabotka = models.FloatField(blank=True, null=True,  verbose_name='Моточасы')
     nagruzka = models.PositiveIntegerField(null=True, blank=True, verbose_name='Нагрузка')
     active = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Активная Нагрузка')
     reactive = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Реактивная  Нагрузка')
@@ -269,9 +271,9 @@ class ReportDGU(models.Model):
     l1 = models.PositiveSmallIntegerField(null=True, blank=True,  verbose_name='L1')
     l2 = models.PositiveSmallIntegerField(null=True, blank=True,  verbose_name='L2')
     l3 = models.PositiveSmallIntegerField(null=True, blank=True,  verbose_name='L3')
+    total_power = models.PositiveSmallIntegerField(null=True, blank=True,  verbose_name='Общая Мощность')
     voltage = models.FloatField(blank=True, null=True,  verbose_name='Напряжение')
     frequency = models.FloatField(blank=True, null=True,  verbose_name='Частота')
-
     dmasla = models.FloatField(blank=True, null=True, verbose_name='Давление масла')
     tc = models.FloatField(blank=True, null=True,  verbose_name='Темп. Охл. Жидкости')
     akb = models.FloatField(blank=True, null=True, verbose_name='АКБ')

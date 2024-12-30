@@ -44,6 +44,9 @@ def create_report(request, id):
             report.l1 = request.POST.get("l1")
             report.l2 = request.POST.get("l2")
             report.l3 = request.POST.get("l3")
+            report.total_power = request.POST.get("total_power")
+            report.voltage = request.POST.get("voltage")
+            report.frequency = request.POST.get("frequency")
             report.dmasla = chec_zpt(request.POST.get("dmasla"))
             report.tc = chec_zpt(request.POST.get("tc"))
             report.akb = chec_zpt(request.POST.get("akb"))
@@ -116,7 +119,7 @@ def area(request, id):
     rpt = set(i.dgu.name for i in report)
     return render(request, "area.html",
                   {'dgus': dgus, 'location': location, 'object_kes': object_kes,
-                   'report': report, 'rpt': rpt})
+                   'report': report, 'rpt': rpt, 'dmy': (d, m, y)})
 
 @login_required
 def dgu_settings(request, id):

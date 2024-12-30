@@ -66,16 +66,90 @@
     <table>
     {% for rpt in report %}
     <tr>
-        <td>{{ rpt.author}}</td>
-        <td>{{ rpt.time_create}}</td>
+        <td>{{ rpt.author }}</td>
+        <td>{{ rpt.time_create|time:"H:i" }}</td>
         <td>{{ rpt.narabotka }}</td>
         <td>{{ rpt.dgu.name }}</td>
         <td>{{ rpt.dgu.location }}</td>
     </tr>
     {% endfor %}</table>
 
-    <img src="{% static  'img/0.gif'%}" class="zero">
-    {{ rpt }}
+<img src="{% static  'img/0.gif'%}" class="zero">
+    <!-- Настраиваем отчет -->
+<table>
+    <caption><b>Ежедневный отчет от {{ dmy }}</b></caption>
+    <thead>
+        <tr>
+            <th class="stl_01" >ДГУ</th>
+            <th class="stl_01" >Время</th>
+            <th class="stl_1" >М/Ч</th>
+            <th class="stl_3" >Нагруз.</th>
+            <th class="stl_4" >АктНагр</th>
+            <th class="stl_5" >РеактН.</th>
+            <th class="stl_6" >ПолнН.</th>
+            <th class="stl_7" >L1</th>
+            <th class="stl_8" >L2</th>
+            <th class="stl_9" >L3</th>
+            <th class="stl_10" >ОбщМощ</th>
+            <th class="stl_11" >Напряж.</th>
+            <th class="stl_12" >Частота</th>
+            <th class="stl_13" >ДавлМасл</th>
+            <th class="stl_13" >Темп.О.Ж</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rpt in report %}
+        <tr>
+            <td>{{ rpt.dgu.name }}</td>
+            <td>{{ rpt.time_create|time:"H:i" }}</td>
+            <td>{{ rpt.narabotka }}</td>
+            <td>{{ rpt.nagruzka }}</td>
+            <td>{{ rpt.active }}</td>
+            <td>{{ rpt.full_load }}</td>
+            <td>{{ rpt.l1}}</td>
+            <td>{{ rpt.l2}}</td>
+            <td>{{ rpt.l3}}</td>
+            <td>{{ rpt.total_power}}</td>
+            <td>{{ rpt.voltage}}</td>
+            <td>{{ rpt.frequency}}</td>
+            <td>{{ rpt.dmasla}}</td>
+            <td>{{ rpt.tc}}</td>
+            <td>{{ rpt.akb}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+<img src="{% static  'img/0.gif'%}" class="zero">
+<table>
+    <caption><b>Tопливный отчет от {{ dmy }}</b></caption>
+        <tr>
+            <td class="stl_01" >ДГУ</td>
+            <td class="stl_14" >Наработке</td>
+            <td class="stl_02" >Время</td>
+            <td class="stl_15" >ТКнакоп</td>
+            <td class="stl_16" >Пок.см</td>
+            <td class="stl_17" >Емк.пит.</td>
+            <td class="stl_18" >Пок.см</td>
+            <td class="stl_19" >Счетчик</td>
+            <td class="stl_20" >Показан</td>
+        </tr>
+        {% for rpt in report %}
+        <tr>
+            <td class="stl_01" >{{ rpt.dgu.name }}</td>
+            <td class="stl_14" >Наработке</td>
+            <td class="stl_02" ><td>{{ rpt.time_create|time:"H:i" }}</td></th>
+            <td class="stl_15" >{{ rpt.emkost_nak.number }}</td>
+            <td class="stl_16" >{{ rpt.emkost_nak_pok }}</td>
+            <td class="stl_17" >{{ rpt.emkost_pit.number }}</td>
+            <td class="stl_18" >{{ rpt.emkost_pit_pok }}</td>
+            <td class="stl_19" >{{ rpt.pump_meter.name }}</td>
+            <td class="stl_20" >{{ rpt.pump_meter_pok }}</td>
+        </tr>
+        {% endfor %}
+</table>
+<img src="{% static  'img/0.gif'%}" class="zero">
+            <!--             -->
 
 </main>
 {% endblock content %}

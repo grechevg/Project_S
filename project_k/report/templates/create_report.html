@@ -38,6 +38,19 @@
 					<p>L3:       <input type =  "text" name = "l3" placeholder = "L3"> A</p><br> <br>
 				{% else %}
 				{% endif %}
+				{% if dgu_name.total_power %}
+					<p>Полн.Мощность:       <input type =  "text" name = "total_power" placeholder = "Полная Мощьность"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.voltage %}
+					<p>Напряжение:       <input type =  "text" name = "voltage" placeholder = "Напряжение"> В</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.frequency %}
+					<p>Частота:       <input type =  "text" name = "frequency" placeholder = "Частота"> </p><br> <br>
+				{% else %}
+				{% endif %}
+
 				{% if dgu_name.dmasla %}
 				<p>Дав.Масла:<input type =  "text" name = "dmasla" placeholder = "Давление Масла"> Кг/см²</p><br> <br>
 				{% else %}

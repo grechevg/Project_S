@@ -1,4 +1,5 @@
-try:
-    x = [5/1, print(5), [1, 1.5, ]]
-except:
-    print(' ошибка ')
+from report.models import CreateDGU
+
+rep = ['nagruzka', 'active', 'reactive', 'full_load', 'l1', 'l2', 'l3',
+       'total_power', 'voltage', 'frequency', 'dmasla', 'tog', 'akb',
+       'primechanie', 'tk_nak', 'emk_pit', 'pump_m', 'mrc',]
