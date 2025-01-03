@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Изменить Отчет{% endblock title %}
+
+{% block content %}
+<main>
+	<p>  </p>
+	<form method="POST">
+    {% csrf_token %}
+		<fieldset>
+			<legend>Изменить Отчет ДГУ № {{name}}  <p>от {{ time }} </p> <br></legend>
+				<br>
+			<p>
+            <label>Изменить Наработка</label><br>
+            	<input type="text" name="narabotka" value="{{rpt.narabotka}}" />
+        	</p>
+        	<p>
+            <label>Изменить Активная нагрузка</label><br>
+            	<input type="text" name="active" value="{{rpt.active}}"/>
+        	</p>
+
+        <input type="submit" value="Сохранить" >
+        </fieldset>
+    </form>
+</main>
+{% endblock %}

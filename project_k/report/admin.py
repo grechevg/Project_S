@@ -4,11 +4,12 @@ from .models import *
 
 @admin.register(CreateDGU)
 class CreateDGUAdmin(admin.ModelAdmin):
-    list_display = ('name', 'long_name', 'post_name', 'dvs', 'location',  'work', 'status', 'paralel', 'title',)
+    list_display = ('name', 'long_name', 'post_name', 'dvs', 'location', 'work', 'status', 'paralel', 'title',)
     list_display_links = ('name',)
     list_editable = ('location',)
-    list_per_page = 10
+    list_per_page = 30
     search_fields = ['name', 'power', ]
+
 
 @admin.register(DVS)
 class DVSAdmin(admin.ModelAdmin):

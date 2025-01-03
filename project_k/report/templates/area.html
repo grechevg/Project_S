@@ -125,7 +125,7 @@
     <caption><b>Tопливный отчет от {{ dmy }}</b></caption>
         <tr>
             <td class="stl_01" >ДГУ</td>
-            <td class="stl_14" >Наработке</td>
+            <td class="stl_14" >Наработкa</td>
             <td class="stl_02" >Время</td>
             <td class="stl_15" >ТКнакоп</td>
             <td class="stl_16" >Пок.см</td>
@@ -137,8 +137,8 @@
         {% for rpt in report %}
         <tr>
             <td class="stl_01" >{{ rpt.dgu.name }}</td>
-            <td class="stl_14" >Наработке</td>
-            <td class="stl_02" ><td>{{ rpt.time_create|time:"H:i" }}</td></th>
+            <td class="stl_14" >{{ rpt.nar }}</td>
+            <td class="stl_02" >{{ rpt.time_create|time:"H:i" }}</td></th>
             <td class="stl_15" >{{ rpt.emkost_nak.number }}</td>
             <td class="stl_16" >{{ rpt.emkost_nak_pok }}</td>
             <td class="stl_17" >{{ rpt.emkost_pit.number }}</td>

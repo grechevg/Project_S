@@ -11,6 +11,7 @@ urlpatterns = [
     path("dgu/<int:id>/", dgu, name='dgu'),
     path("create_dgu/", create_dgu, name='create_dgu'),
     path("create_report/<int:id>/", create_report, name='create_report'),
+    path("edit_report/<int:id>/", edit_report, name='edit_report'),
     path("edit_dgu/<int:id>/", edit_dgu, name='edit_dgu'),
     path("delete_dgu/<int:id>/", delete_dgu, name='delete_dgu'),
     path('users/', include('users.urls', namespace="users")),

@@ -31,6 +31,7 @@ def create_report(request, id):
             mot_hours = float(chec_zpt(request.POST.get("narabotka")))
             report.narabotka = str(mot_hours)
             nar = mot_hours - dgu_name.hours
+            report.nar = str(nar)
             dgu_name.alternator.hours_alternator = dgu_name.alternator.hours_alternator + nar
             dgu_name.alternator.save(update_fields=["hours_alternator"])
             dgu_name.dvs.engine_hours = dgu_name.dvs.engine_hours + nar
@@ -51,9 +52,11 @@ def create_report(request, id):
             report.tc = chec_zpt(request.POST.get("tc"))
             report.akb = chec_zpt(request.POST.get("akb"))
             # Топливо
-
+            report.emkost_nak = dgu_name.emkost_nak
             report.emkost_nak_pok = request.POST.get("emkost_nak")
+            report.emkost_pit = dgu_name.emkost_pit
             report.emkost_pit_pok = request.POST.get("emkost_pit")
+            report.pump_meter = dgu_name.pump_meter
             report.pump_meter_pok = request.POST.get("pump_meter")
 
             report.mercury_pok = request.POST.get("mercury")
@@ -69,7 +72,8 @@ def create_report(request, id):
 
 @login_required
 def create_dgu(request):
-    # если запрос POST, сохраняем данные
+
+
     if request.method == "POST":
         dgu = CreateDGU()
         dgu.name = request.POST.get("name")
@@ -91,6 +95,29 @@ def edit_dgu(request, id):
             return render(request, "edit_dgu.html", {"dgu": dgu,})
     except :
         return HttpResponseNotFound("<h2>Product not found</h2>")
+
+@login_required
+def edit_report(request, id):
+    def chec_zpt(text):
+        return text.replace(',', '.') if ',' in text else text
+
+    try:
+        rpt = ReportDGU.objects.get(id=id)
+        lct = rpt.dgu.location.id
+        name = rpt.dgu.name
+        time = rpt.time_create
+
+        if request.method == "POST":
+            rpt.narabotka = chec_zpt(request.POST.get("narabotka"))
+            rpt.active = request.POST.get("active")
+            rpt.save()
+            return HttpResponseRedirect(f"/area/{lct}")
+        else:
+            return render(request, "edit_report.html", {"rpt": rpt,
+                                                        "name": name, "time": time,})
+    except :
+        return HttpResponseNotFound("<h2>Product not found</h2>")
+
 
 @login_required
 def delete_dgu(request, id):

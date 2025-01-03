@@ -264,6 +264,7 @@ class ReportDGU(models.Model):
 
     # Показатели Отчета
     narabotka = models.FloatField(blank=True, null=True,  verbose_name='Моточасы')
+    nar = models.FloatField(null=True, default=0, verbose_name='Наработка')
     nagruzka = models.PositiveIntegerField(null=True, blank=True, verbose_name='Нагрузка')
     active = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Активная Нагрузка')
     reactive = models.PositiveIntegerField(null=True, blank=True,  verbose_name='Реактивная  Нагрузка')
