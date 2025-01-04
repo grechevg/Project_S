@@ -7,16 +7,82 @@
 	<form method="POST">
     {% csrf_token %}
 		<fieldset>
-			<legend>Изменить Отчет ДГУ № {{name}}  <p>от {{ time }} </p> <br></legend>
-				<br>
-			<p>
-            <label>Изменить Наработка</label><br>
-            	<input type="text" name="narabotka" value="{{rpt.narabotka}}" />
-        	</p>
-        	<p>
-            <label>Изменить Активная нагрузка</label><br>
-            	<input type="text" name="active" value="{{rpt.active}}"/>
-        	</p>
+			<legend>Изменить Отчет ДГУ № {{dgu_name.name}}  <p>.  от {{ time }} </p> <br></legend><br>
+
+
+            <p><label>Изменить Наработка</label><br>
+            	<input type="text" name="narabotka" value="{{rpt.narabotka}}" /><br>
+
+			{% if dgu_name.narabotka %}
+        	<p><label>Изменить Нагрузка (кВт)</label><br>
+            	<input type="text" name="nagruzka" value="{{rpt.nagruzka}}"/><br>{% endif %}
+
+			{% if dgu_name.active %}<label>Изменить Активная Нагрузка</label><br>
+				<input type="text" name = "active" value="{{rpt.active}}" ><br>{% endif %}
+
+			{% if dgu_name.reactive %}<p><label>Изменить Реактивная  Нагрузка</label><br>
+				<input type =  "text" name = "reactive" value="{{rpt.reactive}}"><br>{% endif %}
+
+			{% if dgu_name.full_load %}
+				<input type =  "text" name = "full_load" placeholder = "Полная  Нагрузка"> кВт</p> <br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.l1 %}
+				<p>L1:       <input type =  "text" name = "l1" placeholder = "L1"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.l2 %}
+				<p>L2:       <input type =  "text" name = "l2" placeholder = "L2"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.l3 %}
+					<p>L3:       <input type =  "text" name = "l3" placeholder = "L3"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.total_power %}
+					<p>Полн.Мощность:       <input type =  "text" name = "total_power" placeholder = "Полная Мощьность"> A</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.voltage %}
+					<p>Напряжение:       <input type =  "text" name = "voltage" placeholder = "Напряжение"> В</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.frequency %}
+					<p>Частота:       <input type =  "text" name = "frequency" placeholder = "Частота"> </p><br> <br>
+				{% else %}
+				{% endif %}
+
+				{% if dgu_name.dmasla %}
+				<p>Дав.Масла:<input type =  "text" name = "dmasla" placeholder = "Давление Масла"> Кг/см²</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.tog %}
+					<p>Темп. ОЖ: <input type="text" name="tc" placeholder = "Температура Антифриза"> °C</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.akb %}
+					<p>АКБ: <input type="text" name="akb" placeholder = "Температура Антифриза"> V</p><br> <br>
+				{% else %}
+				{% endif %}
+			<!-- Топливо	счетчики -->
+
+				{% if dgu_name.tk_nak %}
+					<p>ТК накоп {{ emkost_nak.number }} <input type="text" name="emkost_nak" placeholder = "Топливный контейнер"> см</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.emk_pit %}
+					<p>Емкость пит <input type="text" name="emkost_pit" placeholder = "Емкость питательная"> см</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.pump_m %}
+					<p>Счетчик Насоса <input type="text" name="pump_meter" placeholder = "Счетчик Насоса"> л</p><br> <br>
+				{% else %}
+				{% endif %}
+				{% if dgu_name.mrc %}
+					<p>Меркурий <input type="text" name="mercury" placeholder = "Меркурий"> </p><br> <br>
+				{% else %}
+				{% endif %}
+				<p>Примечания:</p><p><textarea  name="title" rows="5" cols="35"> </textarea></p><br> <br>
 
         <input type="submit" value="Сохранить" >
         </fieldset>

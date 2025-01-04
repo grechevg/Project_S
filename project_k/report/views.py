@@ -102,10 +102,11 @@ def edit_report(request, id):
         return text.replace(',', '.') if ',' in text else text
 
     try:
+
         rpt = ReportDGU.objects.get(id=id)
         lct = rpt.dgu.location.id
-        name = rpt.dgu.name
         time = rpt.time_create
+        dgu_name = CreateDGU.objects.get(id=rpt.dgu.id)
 
         if request.method == "POST":
             rpt.narabotka = chec_zpt(request.POST.get("narabotka"))
@@ -114,7 +115,7 @@ def edit_report(request, id):
             return HttpResponseRedirect(f"/area/{lct}")
         else:
             return render(request, "edit_report.html", {"rpt": rpt,
-                                                        "name": name, "time": time,})
+                                                "time": time, "dgu_name": dgu_name})
     except :
         return HttpResponseNotFound("<h2>Product not found</h2>")
 

@@ -62,17 +62,6 @@
                     </tr></table>
                 {% endfor %}
             </div>
-<img src="{% static  'img/0.gif'%}" class="zero">
-    <table>
-    {% for rpt in report %}
-    <tr>
-        <td>{{ rpt.author }}</td>
-        <td>{{ rpt.time_create|time:"H:i" }}</td>
-        <td>{{ rpt.narabotka }}</td>
-        <td>{{ rpt.dgu.name }}</td>
-        <td>{{ rpt.dgu.location }}</td>
-    </tr>
-    {% endfor %}</table>
 
 <img src="{% static  'img/0.gif'%}" class="zero">
     <!-- Настраиваем отчет -->
@@ -133,6 +122,7 @@
             <td class="stl_18" >Пок.см</td>
             <td class="stl_19" >Счетчик</td>
             <td class="stl_20" >Показан</td>
+            <td class="stl_21" >Изменить</td>
         </tr>
         {% for rpt in report %}
         <tr>
@@ -145,6 +135,7 @@
             <td class="stl_18" >{{ rpt.emkost_pit_pok }}</td>
             <td class="stl_19" >{{ rpt.pump_meter.name }}</td>
             <td class="stl_20" >{{ rpt.pump_meter_pok }}</td>
+            <td class="stl_21 "><a href="../../edit_report/{{rpt.id}}">Исправить</a></td>
         </tr>
         {% endfor %}
 </table>
