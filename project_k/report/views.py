@@ -102,15 +102,49 @@ def edit_report(request, id):
         return text.replace(',', '.') if ',' in text else text
 
     try:
-
         rpt = ReportDGU.objects.get(id=id)
         lct = rpt.dgu.location.id
         time = rpt.time_create
         dgu_name = CreateDGU.objects.get(id=rpt.dgu.id)
-
         if request.method == "POST":
-            rpt.narabotka = chec_zpt(request.POST.get("narabotka"))
+            rpt.author = request.user
+            mot_hours = float(chec_zpt(request.POST.get("narabotka")))
+            rpt.narabotka = str(mot_hours)
+            nar1 = rpt.nar
             rpt.active = request.POST.get("active")
+            nar = mot_hours - dgu_name.hours
+            rpt.nar = str(nar1 + nar)
+            dgu_name.hours = mot_hours
+            #             dgu_name.alternator.hours_alternator = dgu_name.alternator.hours_alternator + nar
+            #             dgu_name.alternator.save(update_fields=["hours_alternator"])
+            #             dgu_name.dvs.engine_hours = dgu_name.dvs.engine_hours + nar
+            #             dgu_name.dvs.save(update_fields=["engine_hours"])
+            #             dgu_name.hours = mot_hours
+            #             dgu_name.save(update_fields=["hours"])
+            #             report.nagruzka = request.POST.get("nagruzka")
+            #             report.active = request.POST.get("active")
+            #             report.reactive = request.POST.get("reactive")
+            #             report.full_load = request.POST.get("full_load")
+            #             report.l1 = request.POST.get("l1")
+            #             report.l2 = request.POST.get("l2")
+            #             report.l3 = request.POST.get("l3")
+            #             report.total_power = request.POST.get("total_power")
+            #             report.voltage = request.POST.get("voltage")
+            #             report.frequency = request.POST.get("frequency")
+            #             report.dmasla = chec_zpt(request.POST.get("dmasla"))
+            #             report.tc = chec_zpt(request.POST.get("tc"))
+            #             report.akb = chec_zpt(request.POST.get("akb"))
+            #             # Топливо
+            #             report.emkost_nak = dgu_name.emkost_nak
+            #             report.emkost_nak_pok = request.POST.get("emkost_nak")
+            #             report.emkost_pit = dgu_name.emkost_pit
+            #             report.emkost_pit_pok = request.POST.get("emkost_pit")
+            #             report.pump_meter = dgu_name.pump_meter
+            #             report.pump_meter_pok = request.POST.get("pump_meter")
+            #
+            #             report.mercury_pok = request.POST.get("mercury")
+            #             report.title = request.POST.get("title")
+
             rpt.save()
             return HttpResponseRedirect(f"/area/{lct}")
         else:

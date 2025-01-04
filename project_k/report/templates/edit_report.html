@@ -10,81 +10,66 @@
 			<legend>Изменить Отчет ДГУ № {{dgu_name.name}}  <p>.  от {{ time }} </p> <br></legend><br>
 
 
-            <p><label>Изменить Наработка</label><br>
+            <label>Изменить Наработка</label><br>
             	<input type="text" name="narabotka" value="{{rpt.narabotka}}" /><br>
 
-			{% if dgu_name.narabotka %}
-        	<p><label>Изменить Нагрузка (кВт)</label><br>
-            	<input type="text" name="nagruzka" value="{{rpt.nagruzka}}"/><br>{% endif %}
+			{% if dgu_name.narabotka %}<label>Изменить Нагрузка (кВт)</label><br>
+            	<input type="text" name="nagruzka" value="{{rpt.nagruzka}}"/>{% endif %}<br>
 
-			{% if dgu_name.active %}<label>Изменить Активная Нагрузка</label><br>
-				<input type="text" name = "active" value="{{rpt.active}}" ><br>{% endif %}
+			{% if dgu_name.active %}<label>Изменить Активная Нагрузка (кВт)</label><br>
+				<input type="text" name = "active" value="{{rpt.active}}" ><br>{% endif %}<br>
 
-			{% if dgu_name.reactive %}<p><label>Изменить Реактивная  Нагрузка</label><br>
-				<input type =  "text" name = "reactive" value="{{rpt.reactive}}"><br>{% endif %}
+			{% if dgu_name.reactive %}<label>Изменить Реактивная Нагрузка кВт</label><br>
+				<input type =  "text" name = "reactive" value="{{rpt.reactive}}"><br>{% endif %}<br>
 
-			{% if dgu_name.full_load %}
-				<input type =  "text" name = "full_load" placeholder = "Полная  Нагрузка"> кВт</p> <br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.l1 %}
-				<p>L1:       <input type =  "text" name = "l1" placeholder = "L1"> A</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.l2 %}
-				<p>L2:       <input type =  "text" name = "l2" placeholder = "L2"> A</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.l3 %}
-					<p>L3:       <input type =  "text" name = "l3" placeholder = "L3"> A</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.total_power %}
-					<p>Полн.Мощность:       <input type =  "text" name = "total_power" placeholder = "Полная Мощьность"> A</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.voltage %}
-					<p>Напряжение:       <input type =  "text" name = "voltage" placeholder = "Напряжение"> В</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.frequency %}
-					<p>Частота:       <input type =  "text" name = "frequency" placeholder = "Частота"> </p><br> <br>
-				{% else %}
-				{% endif %}
+			{% if dgu_name.full_load %}<label>Изменить Полная  Нагрузка кВт</label><br>
+				<input type =  "text" name = "full_load" value="{{rpt.full_load}}"><br>{% endif %}<br>
 
-				{% if dgu_name.dmasla %}
-				<p>Дав.Масла:<input type =  "text" name = "dmasla" placeholder = "Давление Масла"> Кг/см²</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.tog %}
-					<p>Темп. ОЖ: <input type="text" name="tc" placeholder = "Температура Антифриза"> °C</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.akb %}
-					<p>АКБ: <input type="text" name="akb" placeholder = "Температура Антифриза"> V</p><br> <br>
-				{% else %}
-				{% endif %}
+			{% if dgu_name.l1 %}<label>Изменить L1 (A)</label><br>
+				<input type =  "text" name = "l1" value="{{rpt.l1}}"><br>{% endif %}<br>
+
+			{% if dgu_name.l2 %}<label>Изменить L2 (A)</label><br>
+				<input type =  "text" name = "l2" value="{{rpt.l2}}"><br>{% endif %}<br>
+
+			{% if dgu_name.l3 %}<label>Изменить L3 (A)</label><br>
+				<input type =  "text" name = "l3" value="{{rpt.l3}}"><br>{% endif %}<br>
+
+			{% if dgu_name.total_power %}<label>Полная Мощьность (A)</label><br>
+				<input type =  "text" name = "total_power" value="{{rpt.total_power}}"><br>{% endif %}<br>
+
+			{% if dgu_name.voltage %}<label>Изменить Напряжение (B)</label><br>
+				<input type =  "text" name = "voltage" value="{{rpt.voltage}}"><br>{% endif %}<br>
+
+			{% if dgu_name.frequency %}<label>Изменить Частота (Гц)</label><br>
+				<input type =  "text" name = "frequency" value="{{rpt.frequency}}"><br>{% endif %}<br>
+
+			{% if dgu_name.dmasla %}<label>Изменить Давление Масла (Кг/см²)</label><br>
+				<input type =  "text" name = "dmasla" value="{{rpt.dmasla}}"><br>{% endif %}<br>
+
+			{% if dgu_name.tog %}<label>Температура Антифриза (°C)</label><br>
+				<input type="text" name="tc" value="{{rpt.tc}}"><br>{% endif %}<br>
+
+			{% if dgu_name.akb %}<label>Изменить АКБ:  (В)</label><br>
+				<input type="text" name="akb" value="{{rpt.akb}}"><br>{% endif %}<br>
+
 			<!-- Топливо	счетчики -->
+			{% if dgu_name.tk_nak %}<label>{{ rpt.emkost_nak }} накопительный (См)</label><br>
+				<input type="text" name="emkost_nak" value="{{rpt.emkost_nak_pok}}"><br>{% endif %}<br>
 
-				{% if dgu_name.tk_nak %}
-					<p>ТК накоп {{ emkost_nak.number }} <input type="text" name="emkost_nak" placeholder = "Топливный контейнер"> см</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.emk_pit %}
-					<p>Емкость пит <input type="text" name="emkost_pit" placeholder = "Емкость питательная"> см</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.pump_m %}
-					<p>Счетчик Насоса <input type="text" name="pump_meter" placeholder = "Счетчик Насоса"> л</p><br> <br>
-				{% else %}
-				{% endif %}
-				{% if dgu_name.mrc %}
-					<p>Меркурий <input type="text" name="mercury" placeholder = "Меркурий"> </p><br> <br>
-				{% else %}
-				{% endif %}
-				<p>Примечания:</p><p><textarea  name="title" rows="5" cols="35"> </textarea></p><br> <br>
+			{% if dgu_name.emk_pit %}<label>{{ rpt.emkost_pit }} питательная (См)</label><br>
+				<input type="text" name="emkost_pit" value="{{rpt.emkost_pit_pok}}"><br>{% endif %}<br>
 
-        <input type="submit" value="Сохранить" >
+			{% if dgu_name.pump_m %}<label>{{ rpt.pump_meter}} Счетчик Насоса</label><br>
+				<input type="text" name="pump_meter" value="{{rpt.pump_meter_pok}}"><br>{% endif %}<br>
+
+			{% if dgu_name.mrc %}<label>{{ rpt.mercury}} Меркурий</label><br>
+				<input type="text" name="mercury" value="{{rpt.mercury_pok}}"><br>{% endif %}<br>
+
+			<label>Изменить Примечания:</label><br>
+				<p>{{rpt.title}}</p>
+				<textarea  name="title" rows="5" cols="35" value="{{rpt.title}}"></textarea><br> <br>
+
+        <input type="submit" value="Сохранить">
         </fieldset>
     </form>
 </main>
