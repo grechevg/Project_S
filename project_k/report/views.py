@@ -115,35 +115,33 @@ def edit_report(request, id):
             nar = mot_hours - dgu_name.hours
             rpt.nar = str(nar1 + nar)
             dgu_name.hours = mot_hours
-            #             dgu_name.alternator.hours_alternator = dgu_name.alternator.hours_alternator + nar
-            #             dgu_name.alternator.save(update_fields=["hours_alternator"])
-            #             dgu_name.dvs.engine_hours = dgu_name.dvs.engine_hours + nar
-            #             dgu_name.dvs.save(update_fields=["engine_hours"])
-            #             dgu_name.hours = mot_hours
-            #             dgu_name.save(update_fields=["hours"])
-            #             report.nagruzka = request.POST.get("nagruzka")
-            #             report.active = request.POST.get("active")
-            #             report.reactive = request.POST.get("reactive")
-            #             report.full_load = request.POST.get("full_load")
-            #             report.l1 = request.POST.get("l1")
-            #             report.l2 = request.POST.get("l2")
-            #             report.l3 = request.POST.get("l3")
-            #             report.total_power = request.POST.get("total_power")
-            #             report.voltage = request.POST.get("voltage")
-            #             report.frequency = request.POST.get("frequency")
-            #             report.dmasla = chec_zpt(request.POST.get("dmasla"))
-            #             report.tc = chec_zpt(request.POST.get("tc"))
-            #             report.akb = chec_zpt(request.POST.get("akb"))
-            #             # Топливо
-            #             report.emkost_nak = dgu_name.emkost_nak
-            #             report.emkost_nak_pok = request.POST.get("emkost_nak")
-            #             report.emkost_pit = dgu_name.emkost_pit
-            #             report.emkost_pit_pok = request.POST.get("emkost_pit")
-            #             report.pump_meter = dgu_name.pump_meter
-            #             report.pump_meter_pok = request.POST.get("pump_meter")
-            #
-            #             report.mercury_pok = request.POST.get("mercury")
-            #             report.title = request.POST.get("title")
+            dgu_name.save(update_fields=["hours"])
+            dgu_name.alternator.hours_alternator = dgu_name.alternator.hours_alternator + nar
+            dgu_name.alternator.save(update_fields=["hours_alternator"])
+            dgu_name.dvs.engine_hours = dgu_name.dvs.engine_hours + nar
+            dgu_name.dvs.save(update_fields=["engine_hours"])
+            rpt.nagruzka = request.POST.get("nagruzka")
+            rpt.active = request.POST.get("active")
+            rpt.reactive = request.POST.get("reactive")
+            rpt.full_load = request.POST.get("full_load")
+            rpt.l1 = request.POST.get("l1")
+            rpt.l2 = request.POST.get("l2")
+            rpt.l3 = request.POST.get("l3")
+            rpt.total_power = request.POST.get("total_power")
+            rpt.voltage = request.POST.get("voltage")
+            rpt.frequency = request.POST.get("frequency")
+            rpt.dmasla = chec_zpt(request.POST.get("dmasla"))
+            rpt.tc = chec_zpt(request.POST.get("tc"))
+            rpt.akb = chec_zpt(request.POST.get("akb"))
+         # Топливо
+            rpt.emkost_nak = dgu_name.emkost_nak
+            rpt.emkost_nak_pok = request.POST.get("emkost_nak")
+            rpt.emkost_pit = dgu_name.emkost_pit
+            rpt.emkost_pit_pok = request.POST.get("emkost_pit")
+            rpt.pump_meter = dgu_name.pump_meter
+            rpt.pump_meter_pok = request.POST.get("pump_meter")
+            rpt.mercury_pok = request.POST.get("mercury")
+            rpt.title = request.POST.get("title")
 
             rpt.save()
             return HttpResponseRedirect(f"/area/{lct}")
